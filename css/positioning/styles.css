@@ -2,7 +2,14 @@
 }
 
 img.octopus {
-  margin: 50px 250px;
+  display: block;
+  margin: 75px 250px;
   position: absolute;
   z-index: -1;
+}
+
+img.hat {
+  display: block;
+  margin: 0px 235px;
+  position: relative;
 }
