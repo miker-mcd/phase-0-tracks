@@ -1,0 +1,8 @@
+* { outline: 1px solid red;
+}
+
+img.octopus {
+  margin: 50px 250px;
+  position: absolute;
+  z-index: -1;
+}
