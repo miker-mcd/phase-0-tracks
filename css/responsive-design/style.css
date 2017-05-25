@@ -53,23 +53,21 @@ main {
   }
 }*/
 
-@media screen and (max-width: 959px) {
-  body {
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
-  }
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    #external-link, #content {
+      display: inline-block;
+        width: 100%;
+    }
 
-  main {
-    width: 100%;
-  }
+@media screen and (min-width: 480px) {
+  #external-links {width: 200px;
+    float: left;}
+  #content {margin-left: 216px;}
+}
 
-  figcaption {
-    font-size: 65%;
-  }
-
-  blockquote {
-    font-size: 150%;
-    border-left: 5px solid blue;
+@media (min-width: 700px) and (orientation: landscape) {
+  body {margin-left: 20px;
+    width: max-width;}
 }
 }
