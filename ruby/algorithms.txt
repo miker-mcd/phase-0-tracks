@@ -1,0 +1,7 @@
+- Receive floor number from master and store as desired floor in memory.
+- Start at 1 and count up to highest floor number option in array of floor numbers.
+  - If the option matches the desired floor number:
+    - Extend arm to press button.
+- Otherwise:
+  - If the option does not match the desired floor number:
+    - Extend arm to press button that matches letter and number of desired floor.
