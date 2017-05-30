@@ -1,3 +1,5 @@
+Release 0
+
 - Receive floor number from master and store as desired floor in memory.
 - Start at 1 and count up to highest floor number option in array of floor numbers.
   - If the option matches the desired floor number:
@@ -5,3 +7,15 @@
 - Otherwise:
   - If the option does not match the desired floor number:
     - Extend arm to press button that matches letter and number of desired floor.
+
+Release 1: Taking Out the Garbage Algorithm
+
+- For every piece of garbage that you throw away:
+  - Observe garbage can.
+    - Until garbage can is full or smells horrible:
+      - Put piece of garbage into garbage can and close lid.
+    - Otherwise:
+      - Tie garbage can liner string into a knot.
+      - Remove garbage bag from can and proceed to dispose into large garbage receptacle.
+        - If garbage bag is leaking fluid:
+          - Run to large garbage receptacle.
