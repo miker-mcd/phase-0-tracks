@@ -1,0 +1,25 @@
+.column-1 {
+  display: inline-block;
+  vertical-align: top;
+  width: 40%;
+  margin: 10px;
+  background-color: blue;
+  padding: 1px;
+}
+
+.column-2 {
+  display: inline-block;
+  vertical-align: top;
+  width: 40%;
+  margin: 10px;
+  background-color: green;
+  padding: 1px;
+}
+header, section, footer {
+  font-family: Helvetica;
+  padding: 1px;
+}
+
+h1:hover {
+  color: purple;
+}
