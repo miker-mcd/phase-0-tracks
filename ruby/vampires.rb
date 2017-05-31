@@ -44,7 +44,8 @@ elsif insurance == "n"
   puts "You do not want to enroll."
 end
 
-=beginwolves_like_sunshine = true
+=begin
+wolves_like_sunshine = true
 wolves_like_garlic = true
 vampires_like_sunshine = false
 vampires_like_garlic = false
@@ -53,13 +54,12 @@ vampires_like_garlic = false
 time = Time.new
 
 correct_age = time.year - employee_year
-# correct_age2 = time.year - employee_year
 
-=begin
+correct_age2 = correct_age - 1
+
 case
-  when employee_age == correct_age || correct_age2 && garlic_bread == "y" || insurance == "y"
-    puts "Probably not a vampire."
-  else
-    puts "Results inconclusive"
-  end
-=end
+when (employee_age == correct_age) && (garlic_bread || insurance)
+  puts "Probably not a vampire."
+else
+  puts "Results inconclusive."
+end
