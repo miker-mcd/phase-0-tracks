@@ -1,3 +1,10 @@
+puts "How many employees will be processed?"
+
+employee_number = gets.chomp
+
+employee_number = employee_number.to_i
+
+until employee_number == 0
 puts "What is your name?"
 
 employee_name = gets.chomp
@@ -68,4 +75,7 @@ when (employee_age != correct_age) && (garlic_no || insurance_no)
   puts "Probably a vampire."
 else
   puts "Results inconclusive."
+end
+
+employee_number -= 1
 end
