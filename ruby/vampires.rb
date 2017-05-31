@@ -55,13 +55,17 @@ time = Time.new
 
 correct_age = time.year - employee_year
 
-#correct_age = correct_age - 1
+correct_age2 = correct_age - 1
 
 case
+when (employee_name == "Drake Cula") || (employee_name == "Tu Fang")
+  puts "Definitely a vampire."
 when (employee_age == correct_age) && (garlic_yes || insurance_yes)
   puts "Probably not a vampire."
-#when (employee_age != correct_age) && (garlic_bread || insurance)
-#  puts "Probably a vampire."
+when (employee_age != correct_age) && (garlic_no && insurance_no)
+  puts "Almost certainly a vampire."
+when (employee_age != correct_age) && (garlic_no || insurance_no)
+  puts "Probably a vampire."
 else
   puts "Results inconclusive."
 end
