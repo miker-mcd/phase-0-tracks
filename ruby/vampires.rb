@@ -25,10 +25,10 @@ puts "Our company cafeteria serves garlic bread. Should we order some for you? (
 garlic_bread = gets.chomp
 
 if garlic_bread == "y"
-  garlic_bread = true
+  garlic_yes = garlic_bread
   puts "You would like garlic bread."
 elsif garlic_bread == "n"
-  garlic_bread = false
+  garlic_no = garlic_bread
   puts "You do not want garlic bread"
 end
 
@@ -37,10 +37,10 @@ puts "Would you like to enroll in the company's health insurance? (y/n)"
 insurance = gets.chomp
 
 if insurance == "y"
-  insurance = true
+  insurance_yes = insurance
   puts "You would like to enroll."
 elsif insurance == "n"
-  insurance = false
+  insurance_no = insurance
   puts "You do not want to enroll."
 end
 
@@ -55,11 +55,13 @@ time = Time.new
 
 correct_age = time.year - employee_year
 
-correct_age2 = correct_age - 1
+#correct_age = correct_age - 1
 
 case
-when (employee_age == correct_age) && (garlic_bread || insurance)
+when (employee_age == correct_age) && (garlic_yes || insurance_yes)
   puts "Probably not a vampire."
+#when (employee_age != correct_age) && (garlic_bread || insurance)
+#  puts "Probably a vampire."
 else
   puts "Results inconclusive."
 end
