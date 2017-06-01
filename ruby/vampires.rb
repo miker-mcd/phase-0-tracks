@@ -5,6 +5,7 @@ employee_number = gets.chomp
 employee_number = employee_number.to_i
 
 until employee_number == 0
+
 puts "What is your name?"
 
 employee_name = gets.chomp
@@ -65,20 +66,22 @@ correct_age = time.year - employee_year
 correct_age2 = correct_age - 1
 
 bad_allergy = "sunshine"
+done_allergy = "done"
 input = ""
 
-while input != bad_allergy
+while input != done_allergy
   puts "Please list any allergies, one at a time, and type \"done\" when finished."
   input = gets.chomp
-if input == bad_allergy
-  puts "Probably a vampire."
+if input == done_allergy
   break
-elsif input == "done"
+elsif input == bad_allergy
   break
 end
 end
 
 case
+when input == bad_allergy
+  puts "Probably a vampire."
 when (employee_name == "Drake Cula") || (employee_name == "Tu Fang")
   puts "Definitely a vampire."
 when (employee_age == correct_age) && (garlic_yes || insurance_yes)
@@ -93,3 +96,4 @@ end
 
 employee_number -= 1
 end
+puts "Actually, never mind! What do these questions have to do with anything? Let's all be friends."
