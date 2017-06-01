@@ -64,6 +64,20 @@ correct_age = time.year - employee_year
 
 correct_age2 = correct_age - 1
 
+bad_allergy = "sunshine"
+input = ""
+
+while input != bad_allergy
+  puts "Please list any allergies, one at a time, and type \"done\" when finished."
+  input = gets.chomp
+if input == bad_allergy
+  puts "Probably a vampire."
+  break
+elsif input == "done"
+  break
+end
+end
+
 case
 when (employee_name == "Drake Cula") || (employee_name == "Tu Fang")
   puts "Definitely a vampire."
