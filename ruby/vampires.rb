@@ -59,11 +59,14 @@ vampires_like_sunshine = false
 vampires_like_garlic = false
 =end
 
-time = Time.new
+date = time.year
 
 correct_age = time.year - employee_year
+correct_age = correct_age - 1 if correct_age > employee_age
 
-correct_age2 = correct_age - 1
+# correct_age2 = correct_age - 1
+
+# correct_age = correct_age..correct_age2
 
 bad_allergy = "sunshine"
 done_allergy = "done"
