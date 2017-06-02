@@ -59,7 +59,9 @@ correct_age = time.year - employee_year
 # correct_age2 = correct_age - 1
 
 bad_allergy = "sunshine"
+
 done_allergy = "done"
+
 input = ""
 
 while input != done_allergy
@@ -89,4 +91,5 @@ end
 
 employee_number -= 1
 end
+
 puts "Actually, never mind! What do these questions have to do with anything? Let's all be friends."
