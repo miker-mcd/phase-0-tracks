@@ -52,21 +52,11 @@ elsif insurance == "n"
   puts "You do not want to enroll."
 end
 
-=begin
-wolves_like_sunshine = true
-wolves_like_garlic = true
-vampires_like_sunshine = false
-vampires_like_garlic = false
-=end
-
-date = time.year
+time = Time.new
 
 correct_age = time.year - employee_year
-correct_age = correct_age - 1 if correct_age > employee_age
 
 # correct_age2 = correct_age - 1
-
-# correct_age = correct_age..correct_age2
 
 bad_allergy = "sunshine"
 done_allergy = "done"
