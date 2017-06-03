@@ -6,17 +6,19 @@ encrypt method
     - leave unchanged and move to next letter
   - Otherwise:
   - Advance each letter of the string one letter forward. Ex. input = "abc" output = "bcd"
+=end
 
-alpha = "abc"
+str = gets.chomp
 index = 0
 
-while index < alpha.length
-  alpha[index] = alpha[index].delete(" ")
-  alpha[index] = alpha[index].next
-  p alpha[index]
+while index < str.length
+  # letter = str[index].delete(" ")
+  letter = str[index].next
+  p letter
   index += 1
   end
 
+=begin
 decrypt method
 - while index is less than the length of the string
   - if string contains a space
@@ -27,9 +29,10 @@ decrypt method
 
 alpha = gets.chomp
 index = 0
+alphabet = "abcdefghijklmnopqrstuvwxyz"
 
 while index < alpha.length
-  letter = alphabet.index(alpha[i])
+  letter = alphabet.index(alpha[index])
   previous_letter = letter - 1
   decrypt_letter = alphabet[previous_letter]
   p decrypt_letter
