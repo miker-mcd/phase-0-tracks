@@ -12,13 +12,26 @@ index = 0
 
 while index < alpha.length
   alpha[index] = alpha[index].delete(" ")
-  puts alpha[index] = alpha[index].next
+  alpha[index] = alpha[index].next
+  p alpha[index]
   index += 1
   end
 
-encrypt method
+decrypt method
 - while index is less than the length of the string
   - if string contains a space
     - leave unchanged and move to next letter
   - Otherwise:
-  - Advance each letter of the string one letter forward. Ex. input = "abc" output = "bcd"
+  - Go backward one letter for each letter of the string. Ex. input = "abc" output = "zab"
+=end
+
+alpha = gets.chomp
+index = 0
+
+while index < alpha.length
+  letter = alphabet.index(alpha[i])
+  previous_letter = letter - 1
+  decrypt_letter = alphabet[previous_letter]
+  p decrypt_letter
+  index += 1
+  end
