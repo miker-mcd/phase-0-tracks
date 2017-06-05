@@ -70,6 +70,14 @@ else
   puts "Please enter new value for preference"
   preference_fix = mistake.to_sym
   data_fix = gets.chomp
+  preference[preference_fix] = data_fix
+  if data_fix == "y"
+    preference[preference_fix] = true
+  elsif data_fix == "n"
+    preference[preference_fix] = false
+  elsif preference_fix == :age || :children || :bedrooms
+      preference[preference_fix] = data_fix.to_i
+  puts "Here is the latest version of the client perferences: #{preference}"
+  puts "Thank you!"
 end
-
-# fix_preference = gets.chomp
+end
