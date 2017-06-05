@@ -10,7 +10,7 @@ puts "What is your name?"
 
 employee_name = gets.chomp
 
-puts "Your name is #{employee_name}."
+puts "Hi #{employee_name}."
 
 puts "How old are you?"
 
