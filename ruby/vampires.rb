@@ -46,7 +46,7 @@ insurance = gets.chomp
 
 if insurance == "y"
   insurance_yes = insurance
-  puts "You would like to enroll."
+  puts "Thank you for enrolling."
 elsif insurance == "n"
   insurance_no = insurance
   puts "You do not want to enroll."
