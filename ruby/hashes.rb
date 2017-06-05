@@ -60,12 +60,14 @@ preference[:bedrooms] = preference[:bedrooms].to_i
 
 puts "Here is the client information: #{preference}"
 
-# Prompt user to fix one mistake.
+# Prompt user to fix preference key mistake.
 puts "If you made a mistake, please enter the name of the preference category to fix, otherwise type 'none' to finish."
 mistake = gets.chomp
 
+# If response is "none" then skip.
 if mistake == "none"
   puts "Client preferences completed, thank you."
+# Prompt user to enter correct preference value.
 else
   puts "Please enter new value for preference"
   preference_fix = mistake.to_sym
@@ -77,7 +79,9 @@ else
     preference[preference_fix] = false
   elsif preference_fix == :age || :children || :bedrooms
       preference[preference_fix] = data_fix.to_i
-  puts "Here is the latest version of the client perferences: #{preference}"
+  # Display updated version of preferences to user.
+  puts "Here is the latest version of the client preferences: #{preference}"
+  # End greeting.
   puts "Thank you!"
 end
 end
