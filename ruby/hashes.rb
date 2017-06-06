@@ -16,7 +16,7 @@ preference = {
   full_name: string
   age: integer
   children: integer
-  decor_theme: string
+  decor_theme: ["french", "modern", "socal"]
   college_grad: boolean
   hgtv: boolean
   bedrooms: integer
