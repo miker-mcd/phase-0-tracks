@@ -1,3 +1,4 @@
+=begin
 def print_method
   puts "This is before the block."
   yield("Gloria", "Michael")
@@ -5,3 +6,7 @@ def print_method
 end
 
 print_method { |name1, name2| puts "#{name1 } and #{name2}." }
+=end
+
+###################
+
