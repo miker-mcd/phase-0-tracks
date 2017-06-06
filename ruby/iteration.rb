@@ -5,7 +5,7 @@
 #   puts "This is after the block."
 # end
 
-# print_method { |name1, name2| puts "#{name1 } and #{name2}." }
+# print_method { |name1, name2| puts "#{name1} and #{name2}." }
 
 
 food = ["pizza", "tacos", "burger", "sushi", "tomato soup"]
@@ -68,10 +68,12 @@ new_usa_states = usa_states.map do |state,capital|
   # puts "debug: #{state.length}"
   # puts state
   # puts capital
-  if state.length <= 5
-    break
+  if state.length == 5
+    state.upcase
   end
 end
+
+
 
 puts "Final data"
 puts new_food
