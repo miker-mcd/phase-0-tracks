@@ -25,4 +25,21 @@ reverse_name = real_name.split.reverse!
 reverse_array = reverse_name.join(' ').split('')
 # ['l', 'a', 's', 't', '', 'n', 'a', 'm', 'e']
 
+reverse_array.map! { |letter| letter.next
+
+case
+when letter == 'a'
+  letter = 'e'
+when letter == 'e'
+  letter = 'i'
+when letter == 'i'
+  letter = 'o'
+when letter == 'o'
+  letter = 'u'
+when letter == 'u'
+  letter = 'a'
+end
+p letter
+}
+
 p reverse_array
