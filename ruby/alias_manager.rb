@@ -19,3 +19,10 @@ Alias Name Algorithm
 puts 'Please enter full name.'
 real_name = gets.chomp
 
+reverse_name = real_name.split.reverse!
+# [last, first]
+
+reverse_array = reverse_name.join(' ').split('')
+# ['l', 'a', 's', 't', '', 'n', 'a', 'm', 'e']
+
+p reverse_array
