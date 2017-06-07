@@ -16,30 +16,52 @@ Alias Name Algorithm
 
 # Alias Name Algorithm
 
-puts 'Please enter full name.'
-real_name = gets.chomp
+# puts 'Please enter full name.'
+# real_name = gets.chomp
 
-reverse_name = real_name.split.reverse!
-# [last, first]
+# reverse_name = real_name.split.reverse!
+# # [last, first]
 
-reverse_array = reverse_name.join(' ').split('')
-# ['l', 'a', 's', 't', '', 'n', 'a', 'm', 'e']
+# reverse_string = reverse_name.join(' ')
+# # 'Last first'
 
-reverse_array.map! { |letter| letter.next
-
-case
-when letter == 'a'
-  letter = 'e'
-when letter == 'e'
-  letter = 'i'
-when letter == 'i'
-  letter = 'o'
-when letter == 'o'
-  letter = 'u'
-when letter == 'u'
-  letter = 'a'
+# Next Vowel
+def next_vowel(vowel)
+  case
+when vowel == 'a'
+  vowel = 'e'
+when vowel == 'e'
+  vowel = 'i'
+when vowel == 'i'
+  vowel = 'o'
+when vowel == 'o'
+  vowel = 'u'
+when vowel == 'u'
+  vowel = 'a'
 end
-p letter
-}
+p vowel
+end
 
-p reverse_array
+next_vowel('u')
+
+# reverse_array.map! do |letter|
+
+# case
+# when letter == 'a'
+#   letter = 'e'
+# when letter == 'e'
+#   letter = 'i'
+# when letter == 'i'
+#   letter = 'o'
+# when letter == 'o'
+#   letter = 'u'
+# when letter == 'u'
+#   letter = 'a'
+# end
+
+# p letter
+# end
+
+# reverse_array.map! { |letter| letter.next }
+
+# p reverse_array
