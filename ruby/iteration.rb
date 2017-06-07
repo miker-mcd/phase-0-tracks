@@ -43,39 +43,32 @@ usa_states = {
 
 # --------------RELEASE 2--------------
 puts "Original data"
-puts food
-puts usa_states
+p food
+p usa_states
 
 #1
-#food.delete_if { |food_item| food_item == "tacos"}
+# food.delete_if { |food_item| food_item == "tacos"}
 #2
-#food.select! { |food_item| food_item.length > 5 }
+# food.select! { |food_item| food_item.length > 5 }
 #3
-#food.keep_if { |food_item| food_item[0] == "t"}
+# food.keep_if { |food_item| food_item[0] == "t"}
 #4
-new_food=[]
-new_food=food.take_while {|food_item| food_item.length <= 5 }
+new_food =  []
+new_food = food.drop_while { |food_item| food_item.length <= 5 }
+
+# ----------------------------
 
 #1
-#usa_states.delete_if { |state, capital| capital == "Dallas" }
+# usa_states.delete_if { |state, capital| capital == "Dallas" }
 #2
-#usa_states.select! { |state, capital| state.length > 5 }
+# usa_states.select! { |state, capital| state.length > 5 }
 #3
-#usa_states.keep_if { |state, capital| state[0] == "C" }
+# usa_states.keep_if { |state, capital| state[0] == "C" }
 #4
-#new_usa_states = {}
-new_usa_states = usa_states.map do |state,capital|
-  # puts "debug: #{state.length}"
-  # puts state
-  # puts capital
-  if state.length == 5
-    state.upcase
-  end
-end
-
-
+new_usa_states = usa_states.drop_while { |state, capital| state.length > 5 }
 
 puts "Final data"
-puts new_food
+# p food
+p new_food
+# p usa_states
 p new_usa_states
-p usa_states
