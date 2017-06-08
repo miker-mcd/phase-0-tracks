@@ -16,18 +16,21 @@ Alias Name Algorithm
 
 # Alias Name Algorithm
 
-# puts 'Please enter full name.'
-# real_name = gets.chomp
+puts 'Please enter full name.'
+real_name = gets.chomp
 
-# reverse_name = real_name.split.reverse!
-# # [last, first]
+reverse_name = real_name.split.reverse!
+# [Last, First]
 
-# reverse_string = reverse_name.join(' ')
-# # 'Last first'
+reverse_string = reverse_name.join(' ')
+# 'Last first'
 
-# Next Vowel
+reverse_array = reverse_string.split('')
+# ['L', 'a', 's', 't', '', 'F', 'i', 'r','s','t']
+
+# Next Vowel Method
 def next_vowel(vowel)
-  case
+case
 when vowel == 'a'
   vowel = 'e'
 when vowel == 'e'
@@ -38,40 +41,49 @@ when vowel == 'o'
   vowel = 'u'
 when vowel == 'u'
   vowel = 'a'
+when vowel == 'd'
+  vowel = 'f'
+when vowel == 'h'
+  vowel = 'j'
+when vowel == 'n'
+  vowel = 'o'
+when vowel == 't'
+  vowel = 'v'
+when vowel == 'z'
+  vowel = 'b'
+else
+  vowel = vowel.next
 end
 p vowel
 end
 
-next_vowel('u')
+# next_vowel('a')
+# next_vowel('u')
 
-# Next Consonant
+# Next Consonant Method
 def next_consonant(consonant)
   consonants = 'bcdfghjklmnpqrstvwxyz'
+  # if consonant == 'z' <-- edge case!!!
+  #   consonant = 'b'
+  #   p consonant
+  if consonants.include?(consonant)
   consonant_index = consonants.index(consonant) + 1
   new_consonant = consonants[consonant_index]
+end
   p new_consonant
 end
 
-next_consonant("t")
+# next_consonant('t')
+# next_consonant('d')
 
-# reverse_array.map! do |letter|
+reverse_array.map! do |letter|
 
-# case
-# when letter == 'a'
-#   letter = 'e'
-# when letter == 'e'
-#   letter = 'i'
-# when letter == 'i'
-#   letter = 'o'
-# when letter == 'o'
-#   letter = 'u'
-# when letter == 'u'
-#   letter = 'a'
-# end
+# next_consonant(letter)
+next_vowel(letter)
+end
 
 # p letter
-# end
 
 # reverse_array.map! { |letter| letter.next }
 
-# p reverse_array
+p reverse_array
