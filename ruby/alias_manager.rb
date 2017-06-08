@@ -44,6 +44,16 @@ end
 
 next_vowel('u')
 
+# Next Consonant
+def next_consonant(consonant)
+  consonants = 'bcdfghjklmnpqrstvwxyz'
+  consonant_index = consonants.index(consonant) + 1
+  new_consonant = consonants[consonant_index]
+  p new_consonant
+end
+
+next_consonant("t")
+
 # reverse_array.map! do |letter|
 
 # case
