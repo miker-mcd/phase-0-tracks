@@ -14,22 +14,25 @@ Alias Name Algorithm
   .next only for ASCII? does it take arguments?
 =end
 
-# Alias Name Algorithm
-
 puts 'Please enter full name.'
 real_name = gets.chomp
 
 reverse_name = real_name.split.reverse!
-# [Last, First]
+# ['Last', 'First'] <-- array
 
 reverse_string = reverse_name.join(' ')
-# 'Last first'
+# 'Last first' <-- string
 
 reverse_array = reverse_string.split('')
-# ['L', 'a', 's', 't', '', 'F', 'i', 'r','s','t']
+# ['L', 'a', 's', 't', '', 'F', 'i', 'r','s','t'] <-- array
 
 # Next Vowel Method
 def next_vowel(vowel)
+
+if vowel == vowel.upcase
+  vowel = vowel.swapcase
+end
+
 case
 when vowel == 'a'
   vowel = 'e'
@@ -46,7 +49,7 @@ when vowel == 'd'
 when vowel == 'h'
   vowel = 'j'
 when vowel == 'n'
-  vowel = 'o'
+  vowel = 'p'
 when vowel == 't'
   vowel = 'v'
 when vowel == 'z'
@@ -54,6 +57,7 @@ when vowel == 'z'
 else
   vowel = vowel.next
 end
+
 p vowel
 end
 
@@ -78,12 +82,13 @@ end
 
 reverse_array.map! do |letter|
 
-# next_consonant(letter)
+# if letter == letter.upcase
+#   letter = letter.swapcase
+# end
+
 next_vowel(letter)
 end
 
 # p letter
-
-# reverse_array.map! { |letter| letter.next }
 
 p reverse_array
