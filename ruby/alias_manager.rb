@@ -1,21 +1,34 @@
 =begin
 Alias Name Algorithm
 
-- Receive full name from a user.
+- While user provides a name when prompted:
   # gets.chomp - string
-- Swap the first and last name.
+  - Swap the first and last name.
   # .split empty - array, .reverse?
-- While iterating through each letter
-  # .split(''), .map! block method with conditionals
-  - If there is a vowel in the name (a, e, i, o, u), change to the next vowel in 'aeiou'
-  # letter.include?("aeiou") --> either match to and (+1) advance within a e i o u array or build vowel conditionals in new method and pass in letter as argument to return new vowel ex. if letter == "a" then puts "e" ...
-  - If there is a consonant in the name, change the letter to the next consonant in the alphabet. Ex. 'a' --> 'e' and 'd' --> 'f'.
-  # letter.include?('bcdfghjklmnpqrstvwxyz') --> either match to and (+1) advance within consonant array or build consonant conditionals in new method and pass in letter as argument to return new consonant ex. if letter == "d" then puts "f" ...
-  .next only for ASCII? does it take arguments?
+  - While iterating through each letter
+   # .split(''), .map! block method with  conditionals
+    - If there is a vowel in the name (a, e,  i, o, u), change to the next vowel in  'aeiou'
+   # letter.include?("aeiou") --> either  match to and (+1) advance within a e i o u array or build vowel conditionals in new method and pass in letter as argument to return new vowel ex. if letter == "a" then  puts "e" ...
+   - If there is a consonant in the name,  change the letter to the next consonant in  the alphabet. Ex. 'a' --> 'e' and 'd' -->  'f'.
+   # letter.include?('bcdfghjklmnpqrstvwxyz')  --> either match to and (+1) advance  within consonant array or build consonant  conditionals in new method and pass in  letter as argument to return new consonant  ex. if letter == "d" then puts "f" ...
+   .next only for ASCII? does it take  arguments?
+  - If user types 'quit', then exit the program.
+Otherwise:
+  - If user hits enter or input is nil, then continue program.
 =end
 
-puts 'Please enter full name.'
+puts 'Welcome to the Alias Manager'
+
+real_name = ''
+
+until real_name == 'quit'
+
+puts 'Please enter full name or type \'quit\' to continue.'
 real_name = gets.chomp
+
+if real_name == 'quit'
+  puts "Thank you for using Alias Manager."
+else
 
 reverse_name = real_name.split.reverse!
 # ['Last', 'First'] <-- array
@@ -89,6 +102,11 @@ reverse_array.map! do |letter|
 next_vowel(letter)
 end
 
-# p letter
+# p reverse_array
 
-p reverse_array
+alias_name = reverse_array.join('')
+
+puts "Your alias name is #{alias_name}"
+
+end
+end
