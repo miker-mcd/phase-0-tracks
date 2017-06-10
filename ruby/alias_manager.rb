@@ -17,9 +17,43 @@ Otherwise:
   - If user hits enter or input is nil, then continue program.
 =end
 
-puts 'Welcome to the Alias Manager'
+def alias_method(letters_array)
+
+letters_array.map! do |letter|
+
+case
+when letter == 'a'
+  letter = 'e'
+when letter == 'e'
+  letter = 'i'
+when letter == 'i'
+  letter = 'o'
+when letter == 'o'
+  letter = 'u'
+when letter == 'u'
+  letter = 'a'
+when letter == 'd'
+  letter = 'f'
+when letter == 'h'
+  letter = 'j'
+when letter == 'n'
+  letter = 'p'
+when letter == 't'
+  letter = 'v'
+when letter == 'z'
+  letter = 'b'
+else
+  letter = letter.next
+end
+
+end
+letters_array.join('')
+end
+
+######## User interface
 
 real_name = ''
+alias_list = {}
 
 until real_name == 'quit'
 
@@ -27,7 +61,10 @@ puts 'Please enter full name or type \'quit\' to continue.'
 real_name = gets.chomp
 
 if real_name == 'quit'
-  puts "Thank you for using Alias Manager."
+  puts "Exit program"
+elsif real_name == ''
+  puts "A name was not provided."
+  break
 else
 
 reverse_name = real_name.split.reverse!
@@ -37,76 +74,19 @@ reverse_string = reverse_name.join(' ')
 # 'Last first' <-- string
 
 reverse_array = reverse_string.split('')
-# ['L', 'a', 's', 't', '', 'F', 'i', 'r','s','t'] <-- array
+# ['L','a','s','t','','F','i','r','s','t']
 
-# Next Vowel Method
-def next_vowel(vowel)
+alias_name = alias_method(reverse_array)
 
-if vowel == vowel.upcase
-  vowel = vowel.swapcase
-end
+puts alias_name
 
-case
-when vowel == 'a'
-  vowel = 'e'
-when vowel == 'e'
-  vowel = 'i'
-when vowel == 'i'
-  vowel = 'o'
-when vowel == 'o'
-  vowel = 'u'
-when vowel == 'u'
-  vowel = 'a'
-when vowel == 'd'
-  vowel = 'f'
-when vowel == 'h'
-  vowel = 'j'
-when vowel == 'n'
-  vowel = 'p'
-when vowel == 't'
-  vowel = 'v'
-when vowel == 'z'
-  vowel = 'b'
-else
-  vowel = vowel.next
-end
-
-p vowel
-end
-
-# next_vowel('a')
-# next_vowel('u')
-
-# Next Consonant Method
-def next_consonant(consonant)
-  consonants = 'bcdfghjklmnpqrstvwxyz'
-  # if consonant == 'z' <-- edge case!!!
-  #   consonant = 'b'
-  #   p consonant
-  if consonants.include?(consonant)
-  consonant_index = consonants.index(consonant) + 1
-  new_consonant = consonants[consonant_index]
-end
-  p new_consonant
-end
-
-# next_consonant('t')
-# next_consonant('d')
-
-reverse_array.map! do |letter|
-
-# if letter == letter.upcase
-#   letter = letter.swapcase
-# end
-
-next_vowel(letter)
-end
-
-# p reverse_array
-
-alias_name = reverse_array.join('')
-
-puts "Your alias name is #{alias_name}"
+alias_list[real_name] = alias_name
 
 end
+p alias_list
+
 end
+
+alias_list.each do |real_name, alias_name|
+  puts "#{alias_name} is actually #{real_name}"
+  end
