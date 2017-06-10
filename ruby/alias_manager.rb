@@ -42,6 +42,8 @@ when letter == 't'
   letter = 'v'
 when letter == 'z'
   letter = 'b'
+when letter == 'Z'
+  letter = 'A'
 else
   letter = letter.next
 end
