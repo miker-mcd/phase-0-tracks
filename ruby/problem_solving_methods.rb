@@ -36,11 +36,10 @@ end
 # x = number of times to add a new number.
 
 def fib
-fibo_arr = [2, 3]
+  fibo_arr = [2, 3]
   fibo_arr.each do |number|
-
-  number + fibo_arr[fibo_arr.index(number) - 1]
-
+  var = fibo_arr[fibo_arr.index(number) - 1]
+  p number + var
   end
 end
 
