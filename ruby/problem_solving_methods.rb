@@ -35,12 +35,34 @@ end
 # fib(100) => [0,1,..218922995834555169026]
 # x = number of times to add a new number.
 
-def fib
-  fibo_arr = [2, 3]
-  fibo_arr.each do |number|
-  var = fibo_arr[fibo_arr.index(number) - 1]
-  p number + var
+# def fib
+#   fibo_arr = [2, 3]
+#   fibo_arr.each do |number|
+#   new_number = number + fibo_arr[fibo_arr.index(number) - 1]
+#   p new_number
+#   end
+# end
+
+# p fib
+
+# def fib
+#   fibo_arr = [2,3]
+#   fibo_arr.each do |number|
+#   new_number = fibo_arr.last + fibo_arr[-2]
+#   p new_number
+#   # fibo_arr << new_number
+#   end
+# end
+
+# p fib
+
+def fib(num)
+  fibo_arr = [0,1]
+  num.times do
+  fibo_arr << fibo_arr[-1] + fibo_arr[-2]
   end
+  p fibo_arr[0..-3]
 end
 
-p fib
+fib(6)
+fib(100)
