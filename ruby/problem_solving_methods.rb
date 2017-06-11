@@ -30,6 +30,7 @@ end
 # fib(6) => [0,1,1,2,3,5]
 # fib(100) => [0,1,..218922995834555169026]
 
+### Version 1
 # def fib
 #   fibo_arr = [2, 3]
 #   fibo_arr.each do |number|
@@ -38,8 +39,7 @@ end
 #   end
 # end
 
-# p fib
-
+### Version 2
 # def fib
 #   fibo_arr = [2,3]
 #   fibo_arr.each do |number|
@@ -49,8 +49,7 @@ end
 #   end
 # end
 
-# p fib
-
+### Final Version
 def fib(num)
   fibo_arr = [0,1]
   num.times do
@@ -63,4 +62,21 @@ end
 # fib(100)
 
 ### Release 2: Sort an Array
+# Pseudocode a sorting method that TAKES an ARRAY of integers and returns a sorted version of the ARRAY.
+=begin
+
+Even and Odd Sort Algorithm
+  - input: Array A with unsorted integers and integers as n.
+  - output: Array A with unordered even integers at beginning followed by unordered odd integers.
+
+Given(A)
+n = integers
+
+  in A each n check
+    if A[n + 1] == (n % 2 == 0)
+      swap A[n + 1] and n
+    end if
+  end each
+
+=end
 
