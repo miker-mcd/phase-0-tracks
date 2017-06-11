@@ -10,21 +10,17 @@ arr = [42, 89, 23, 1]
 # output: index of item or nil if item is not present in the array.
 
 def search_array(arr, x)
-count = 0
-while count < arr.length
-  if x == arr[count]
+  count = 0
+  while count < arr.length
+    if x == arr[count]
     p count
-  elsif arr[0..-1] == x
-    arr[x]
   end
 count += 1
-end
+  end
 end
 
-# p search_array(arr, 1)
+# p search_array(arr, 89)
 # p search_array(arr, 24)
-
-# Why do both declarations return: 3, nil, nil, ' '? - p returns nil, but second p return ' '.
 
 ### Release 1 Calculate Fibonacci Numbers
 
@@ -33,7 +29,6 @@ end
 # Method that TAKES a NUMBER of Fibonacci terms to generate and RETURNS an array of the terms.
 # fib(6) => [0,1,1,2,3,5]
 # fib(100) => [0,1,..218922995834555169026]
-# x = number of times to add a new number.
 
 # def fib
 #   fibo_arr = [2, 3]
@@ -64,5 +59,8 @@ def fib(num)
   p fibo_arr[0..-3]
 end
 
-fib(6)
-fib(100)
+# fib(6)
+# fib(100)
+
+### Release 2: Sort an Array
+
