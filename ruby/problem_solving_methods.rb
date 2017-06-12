@@ -80,3 +80,21 @@ n = integers
 
 =end
 
+array = [23, 6, 85, 9, 44, 129, 100]
+
+def even_and_odd(numbers)
+
+  evens = []
+  odds = []
+
+  numbers.each do |number|
+    if number % 2 == 0
+      evens << number
+    else
+      odds << number
+    end
+  end
+new_array = evens + odds
+end
+
+p even_and_odd(array)
