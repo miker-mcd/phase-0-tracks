@@ -28,6 +28,26 @@ class Santa
     @reindeer_ranking << @reindeer_ranking.slice!(@reindeer_ranking.index(reindeer_name))
   end
 
+  # Getter Methods
+
+  # def age
+  #   @age
+  # end
+
+  # def ethnicity
+  #   @ethnicity
+  # end
+
+  # def gender
+  #   @gender
+  # end
+
+  # Setter Method
+
+  # def gender=(new_gender)
+  #   @gender = new_gender
+  # end
+
 end
 
 # Test Code
