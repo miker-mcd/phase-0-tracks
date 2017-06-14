@@ -20,11 +20,11 @@ def create_list(items)
 end
 
 # Method to add an item to a list
-# input: list, item name, and optional quantity
+# input: list (hash), item name (string, and optional quantity (integer)
 # steps:
-# Create a method that takes an inputted item and optional quantity and adds to grocery list hash.
+  # Add one given item and optional quantity of that item to the existing grocery list.
 # output:
-# An updated version of the grocery list with added items listed.
+  # An updated version of the grocery list with added items listed (hash).
 
 def add_item(grocery_list, item, qty)
   grocery_list[item] = qty
