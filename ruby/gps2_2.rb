@@ -23,8 +23,7 @@ end
 # input: list (hash), item name (string, and optional quantity (integer)
 # steps:
   # Add one given item and optional quantity of that item to the existing grocery list.
-# output:
-  # An updated version of the grocery list with added items listed (hash).
+# output: An updated version of the grocery list with added items listed (hash).
 
 def add_item(grocery_list, item, qty)
   grocery_list[item] = qty
@@ -32,11 +31,10 @@ def add_item(grocery_list, item, qty)
 end
 
 # Method to remove an item from the list
-# input: The hash and item name to be removed.
+# input: A list (hash) and item name (string) to be removed.
 # steps:
-# Use built-in method delete or delete_if to remove item from the list.
-# output:
-# An updated version of the grocery list without items that were removed.
+  # Remove one given item from the grocery list.
+# output: An updated version of the grocery list without the item that was removed (hash.
 
 def remove_item(grocery_list, item)
   grocery_list.delete(item)
@@ -44,11 +42,10 @@ def remove_item(grocery_list, item)
 end
 
 # Method to update the quantity of an item
-# input: The hash item and quantity to be updated.
+# input: A list (hash), an item name (string) and quantity (integer) to be updated.
 # steps:
-# Pass in a value to change the item quantity.
-# output:
-# An updated version of the grocery list with a updated key value.
+  # Change one given item's quantity.
+# output: An updated version of the grocery list with an item's updated quantity.
 
 def update_qty(grocery_list, item, qty)
   grocery_list[item] = qty
@@ -56,12 +53,10 @@ def update_qty(grocery_list, item, qty)
 end
 
 # Method to print a list and make it look pretty
-# input:
-# The updated grocery list.
+# input: The updated grocery list (hash)
 # steps:
-# Print hash: item_name : Qty
-# output:
-# A pretty readable version of the grocery list.
+  # Display the grocery list items on separate lines with their corresponding quantities next to the item.
+# output: A pretty readable version of the grocery list (individual strings of the items).
 
 def pretty_list(grocery_list)
   puts "**************"
