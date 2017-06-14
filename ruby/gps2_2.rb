@@ -1,20 +1,20 @@
 # Method to create a list
-# input: string of items separated by spaces (example: "carrots apples cereal pizza")
+# input: A line of items separated by spaces (string) (example: "carrots apples cereal pizza")
 # steps:
-  # Create a method that takes an item and quantity as arguments.
-  # Assign the item as the key and quantity as the value into the empty grocery list hash.
-  # Create an empty hash for the grocery list.
-  # Iterate through the list of items and add to the grocery list hash.
-  # set default quantity
-  # print the list to the console [can you use one of your other methods here?]
-# output: [what data type goes here, array or hash?]
+  # Create an empty container object.
+  # Separate a given list of items into individual items.
+  # For EACH individual item
+    # Add the item to the container.
+    # Set the default quantity of the item to one.
+  # END EACH
+  # Display the list to the user [can you use one of your other methods here?]
+# output: A list of grocery items (hash).
 
 def create_list(items)
   grocery_items = {}
   items.split(" ").each do |item|
     grocery_items[item] = 1
   end
-  # p grocery_items
   pretty_list(grocery_items)
   return grocery_items
 end
