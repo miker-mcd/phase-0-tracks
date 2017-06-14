@@ -13,7 +13,7 @@
 def create_list(items)
   grocery_items = {}
   items.split(" ").each do |item|
-    grocery_items[item] = 1
+    grocery_items[item] = 1 #Refactor?
   end
   pretty_list(grocery_items)
   return grocery_items
@@ -66,7 +66,7 @@ def pretty_list(grocery_list)
   puts "**************"
 end
 
-# TEST CODE
+# # TEST CODE
 
 # Create a new list
 grocery_list = create_list("carrots apples cereal pizza")
@@ -85,3 +85,17 @@ update_qty(grocery_list, "Ice Cream", 1)
 
 # Print out your list
 pretty_list(grocery_list)
+
+# # REFLECTION
+
+# I learned that pseudocode is a very important tool that can help to map out the logic of your program before you actually start to code. It acts as a guide that you can reference to and update as you implement the logic you've written out into the code. I now understand how it vital it is to not feel overwhelmed by a problem because it helps you to break the problem down into simple steps.
+
+# My pair and I discussed that because the grocery list of items has a corresponding quantity, a hash makes it easier to understand that relationship especially when displaying the list to the user. An array would be easier to work with and set up, but wouldn't be readable to the user.
+
+# A method always returns a value of the last evaluated line in the method.
+
+# You can pass in objects like integers, strings and other methods as arguments in methods.
+
+# Information can be passed between methods by calling a method as an argument in a different method, where the return value of the method as argument can be used within the method definition.
+
+# Pseudocode, initial solution and refactoring were definitely solidified in this challenge. I really didn't understand how to pseudocode and what the real purpose it had besides explaining the code in a simple format. I also learned more about the efficiency of passing information between methods and how it can be used to make programs more concise.
