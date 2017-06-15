@@ -37,7 +37,7 @@ end
 class Clown
 
   def juggles(int)
-    puts "I'm juggling #{int} balls!"
+    "I'm juggling #{int} balls!"
   end
 
   def joke(str)
@@ -46,5 +46,20 @@ class Clown
   end
 
   def initialize
+    # p "Initializing new clown instance..."
+  end
 
 end
+
+Clown.new.juggles(3)
+Clown.new.joke("Gabby")
+
+numbers = *(1..50)
+
+array = []
+
+numbers.each do |x|
+  array << Clown.new.juggles(x)
+end
+
+p array
