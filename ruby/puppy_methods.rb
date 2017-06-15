@@ -41,8 +41,7 @@ class Clown
   end
 
   def joke(str)
-    puts "Why did #{str} cross the road!?"
-    puts "Cuz the light was green!"
+    "Why did #{str} cross the road!? Cuz the light was green!"
   end
 
   def initialize
@@ -51,15 +50,17 @@ class Clown
 
 end
 
-Clown.new.juggles(3)
-Clown.new.joke("Gabby")
+p Clown.new.juggles(3)
+p Clown.new.joke("Gabby")
 
-numbers = *(1..50)
+clowns = []
 
-array = []
-
-numbers.each do |x|
-  array << Clown.new.juggles(x)
+50.times do
+  clowns << Clown.new
 end
+# p clowns
 
-p array
+clowns.each do |clown|
+  p clown.juggles(3)
+  p clown.joke("Mike")
+end
