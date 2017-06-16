@@ -11,9 +11,9 @@
 
 class WordGame
 
-  def initialize(word)
-    @player_one_word = word
-  end
+  # def initialize(word)
+  #   @secret_word = word
+  # end
 
 # Create a counter and set it to zero
 # Create an empty container object
@@ -21,5 +21,16 @@ class WordGame
   # Push letter at the counter index to the container
   # Add one to the counter
 # ENDWHILE
+# RETURN container
+
+def split_secret(word)
+  counter = 0
+  secret_array = []
+  while counter < word.length
+    secret_array << word[counter]
+  counter += 1
+  end
+  secret_array
+end
 
 end
