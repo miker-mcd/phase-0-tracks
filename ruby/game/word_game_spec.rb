@@ -1,11 +1,13 @@
 require_relative 'word_game'
 
 describe WordGame do
-  # let(:secret_word) { WordGame.new("word") }
+  let(:new_game) { WordGame.new("pizza") }
 
-  it "splits word into letters" do
-    secret_word = WordGame.new
-    expect(secret_word.split_secret("word")).to eq ["w","o","r","d"]
+  it "splits secret word stored on initialization into letters" do
+    expect(new_game.split_secret).to eq ["p","i","z","z","a"]
   end
 
+  it "stores a letter in a guess container" do
+    expect(new_game.guess_letter("a")).to eq ["a"]
+  end
 end
