@@ -7,6 +7,7 @@ class WordGame
   def initialize(word)
     @secret_word = word
     @guesses = []
+    @secret_array = []
   end
 
 # Secret Word Method
@@ -21,12 +22,11 @@ class WordGame
 
   def split_secret
     counter = 0
-    secret_array = []
   while counter < @secret_word.length
-    secret_array << @secret_word[counter]
+    @secret_array << @secret_word[counter]
   counter += 1
   end
-  secret_array
+  @secret_array
   end
 
 # Player 2 Guess Letter Method
