@@ -10,4 +10,6 @@ describe WordGame do
   it "stores a letter in a guess container" do
     expect(new_game.guess_letter("a")).to eq ["a"]
   end
+
+
 end
