@@ -1,6 +1,7 @@
 # # BUSINESS CODE
 
 class WordGame
+  attr_reader :secret_array
 
   def initialize(word)
     @secret_word = word
@@ -42,7 +43,7 @@ end
 
 # Same Letter Method
 # Input: None
-# for EACH letter in the guesses container
+# for EACH previous letter in the guesses container
   # IF the last guess letter is the same as a previous letter in the guesses container, it is a match (TRUE)
   # ELSE the last letter doesn't match (FALSE)
   # ENDIF
@@ -51,7 +52,7 @@ end
 
 def same_guess
   @guesses = ["a","d","b","c","a"]
-  @guesses.each do |letter|
+  @guesses[0...-1].each do |letter|
     if @guesses[-1] == letter
       return @guesses[-1]
     end
@@ -87,11 +88,19 @@ end
 # p game.split_secret
 
 # counter = 0
-# while counter < game.secret_array.length
-#   puts "Guess a letter"
-#   guess = gets.chomp
-#   p game.guess_letter(guess)
-#   counter += 1
+# while counter < game.secret_array.length #Refactor do loop with break if game.secret_array.length == guess count or game.secret_array.length.times do?
+  # 2.times do
+  # puts "Guess a letter"
+  # guess = gets.chomp
+  # p game.guess_letter(guess)
+  # if game.same_guess
+  #   puts "You've already guessed #{guess}!"
+  # end
+  # counter += 1
+  # if game.same_guess
+    # puts "You've already guessed #{guess}!"
+  # end
+# end
 # end
 
 # p game.compare_letters
