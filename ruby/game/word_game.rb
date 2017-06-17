@@ -50,9 +50,17 @@ end
 # Compare Guess Letter vs. Secret Word Letters
 # Input: None
 # IF the last letter in the second container is the same as any letter in the first container, it is a match (TRUE)
-# DISPLAY the matched letter
 # ELSE the last letter doesn't match (FALSE)
-# Output: True or False
+# Output: The matched letter (string)
 
+def compare_letters
+  @secret_array = ["p","i","z","z","a"]
+  @guesses = ["d","b","c","a"]
+  @secret_array.each do |letter|
+    if @guesses[-1] == letter
+      return @guesses[-1]
+    end
+  end
+end
 
 end

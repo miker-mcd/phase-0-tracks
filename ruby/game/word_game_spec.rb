@@ -11,5 +11,7 @@ describe WordGame do
     expect(new_game.guess_letter("a")).to eq ["a"]
   end
 
-
+  it "compares a letter in guess container with secret word letters" do
+    expect(new_game.compare_letters).to eq "a"
+  end
 end
