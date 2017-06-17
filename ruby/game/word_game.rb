@@ -30,14 +30,9 @@ class WordGame
 # Player 2 Guess Letter Method
 # Input: letter (String)
 # Create an empty container object
-# Create a counter and set it to zero
-# WHILE counter is less than length of the first container AND letter matches a previous letter in the same container
-  # Push the letter of the counter index to the container
+# Push the letter to the container
   # Add one to the counter
-  # IF the letter is the same as a previous letter in the same container
-    # Subtract one from the counter
-  # ENDIF
-# ENDWHILE
+  # Subtract one from the counter
 # Output: Container (Array)
 
 def guess_letter(letter)
@@ -46,11 +41,13 @@ def guess_letter(letter)
 end
 
 # Same Letter Method
-# Input: guess letters container (Array)
-# FOR each letter in the guesses container
+# Input: None
+# for EACH letter in the guesses container
   # IF the last guess letter is the same as a previous letter in the guesses container, it is a match (TRUE)
   # ELSE the last letter doesn't match (FALSE)
-# Output: True or False
+  # ENDIF
+# ENDEACH
+# Output: The matched letter (String)
 
 def same_guess
   @guesses = ["a","d","b","c","a"]
@@ -63,8 +60,11 @@ end
 
 # Compare Guess Letter vs. Secret Word Letters
 # Input: None
-# IF the last letter in the second container is the same as any letter in the first container, it is a match (TRUE)
-# ELSE the last letter doesn't match (FALSE)
+# for EACH letter in the secret letters container
+  # IF the last letter in the second container is the same as any letter in the first container, it is a match (TRUE)
+  # ELSE the last letter doesn't match (FALSE)
+  # ENDIF
+# ENDEACH
 # Output: The matched letter (string)
 
 def compare_letters
