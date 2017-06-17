@@ -71,28 +71,36 @@ end
 # Output: True or False
 
 def compare_letters
-  @secret_array = ["p","i","z","z","a"]
-  @guesses = ["a","d","b","c","a"]
+  # @secret_array = ["t","a","b","l","e"]
+  # @guesses = ["d","v","c","a"]
   @secret_array.each do |letter|
     if @guesses[-1] == letter
       return true
+    # else
+    #   return false
     end
   end
 end
 
 end
 
-# # USER INTERFACE
+# # TEST CODE
+puts "Enter a secret word"
+input = gets.chomp
+game = WordGame.new(input)
+p game.split_secret
 
-# puts "Enter a secret word"
-# input = gets.chomp
-# game = WordGame.new(input)
-# p game.split_secret
+# FIRST LETTER
+puts "Guess a letter"
+guess = gets.chomp
+p game.guess_letters(guess)
+if game.compare_letters != true
+  puts "Pizza" # Guess count guesses remaining.
+else
+  puts "Tacos" # Display letter in secret word
+end
 
-# puts "Guess a letter"
-# guess = gets.chomp
-# p game.guess_letters(guess)
-# game.compare_letters
+# SECOND LETTER
 
 # counter = 0
 # while counter < game.secret_array.length #Refactor do loop with break if game.secret_array.length == guess count or game.secret_array.length.times do?
@@ -111,3 +119,9 @@ end
 # end
 
 # p game.compare_letters
+
+# # USER INTERFACE
+# puts "Enter a secret word"
+# input = gets.chomp
+# game = WordGame.new(input)
+# p game.split_secret
