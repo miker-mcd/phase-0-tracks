@@ -48,13 +48,15 @@ end
   # ELSE the last letter doesn't match (FALSE)
   # ENDIF
 # ENDEACH
-# Output: The matched letter (String)
+# Output: True or False
 
 def same_guess
   @guesses = ["a","d","b","c","a"]
   @guesses[0...-1].each do |letter|
     if @guesses[-1] == letter
-      return @guesses[-1]
+      return true
+    else
+      return false
     end
   end
 end
@@ -87,19 +89,24 @@ end
 # game = WordGame.new(input)
 # p game.split_secret
 
+# puts "Guess a letter"
+# guess = gets.chomp
+# p game.guess_letter(guess)
+# p game.compare_letters
+
 # counter = 0
 # while counter < game.secret_array.length #Refactor do loop with break if game.secret_array.length == guess count or game.secret_array.length.times do?
-  # 2.times do
-  # puts "Guess a letter"
-  # guess = gets.chomp
-  # p game.guess_letter(guess)
+# 2.times do
+#   puts "Guess a letter"
+#   guess = gets.chomp
+#   p game.guess_letter(guess)
   # if game.same_guess
   #   puts "You've already guessed #{guess}!"
   # end
   # counter += 1
-  # if game.same_guess
-    # puts "You've already guessed #{guess}!"
-  # end
+#     if game.same_guess
+#       puts "You've already guessed #{guess}!"
+#     end
 # end
 # end
 
