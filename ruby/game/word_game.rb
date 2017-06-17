@@ -55,8 +55,8 @@ def same_guess
   @guesses[0...-1].each do |letter|
     if @guesses[-1] == letter
       return true
-    else
-      return false
+    # else
+    #   return false
     end
   end
 end
@@ -102,13 +102,18 @@ p game.guess_letters(guess)
 
 # GUESS LETTERS
 
-(game.secret_array.length - 1).times do
+count = 0
+while count < (game.secret_array.length - 1)
+# (game.secret_array.length - 1).times do
   puts "Guess a letter"
   guess = gets.chomp
   p game.guess_letters(guess)
-    if game.same_guess
+    if game.same_guess == true
       puts "You've already guessed #{guess}!"
+      count -= 1
+      # (game.secret_array.length + 1)
     end
+  count += 1
 end
 
 # # USER INTERFACE
