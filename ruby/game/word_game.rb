@@ -51,7 +51,7 @@ end
 # Output: True or False
 
 def same_guess
-  @guesses = ["a","d","b","c","a"]
+  # @guesses = ["a","b"]
   @guesses[0...-1].each do |letter|
     if @guesses[-1] == letter
       return true
@@ -84,7 +84,7 @@ end
 
 end
 
-# # TEST CODE
+# TEST CODE
 puts "Enter a secret word"
 input = gets.chomp
 game = WordGame.new(input)
@@ -94,31 +94,22 @@ p game.split_secret
 puts "Guess a letter"
 guess = gets.chomp
 p game.guess_letters(guess)
-if game.compare_letters != true
-  puts "Pizza" # Guess count guesses remaining.
-else
-  puts "Tacos" # Display letter in secret word
+  if game.compare_letters != true
+    puts "Wrong, guess again" # Guess count guesses remaining.
+  else
+    puts "Correct!" # Display letter in secret word
+  end
+
+# GUESS LETTERS
+
+(game.secret_array.length - 1).times do
+  puts "Guess a letter"
+  guess = gets.chomp
+  p game.guess_letters(guess)
+    if game.same_guess
+      puts "You've already guessed #{guess}!"
+    end
 end
-
-# SECOND LETTER
-
-# counter = 0
-# while counter < game.secret_array.length #Refactor do loop with break if game.secret_array.length == guess count or game.secret_array.length.times do?
-# 2.times do
-#   puts "Guess a letter"
-#   guess = gets.chomp
-#   p game.guess_letter(guess)
-  # if game.same_guess
-  #   puts "You've already guessed #{guess}!"
-  # end
-  # counter += 1
-#     if game.same_guess
-#       puts "You've already guessed #{guess}!"
-#     end
-# end
-# end
-
-# p game.compare_letters
 
 # # USER INTERFACE
 # puts "Enter a secret word"
