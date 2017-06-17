@@ -36,7 +36,7 @@ class WordGame
   # Subtract one from the counter
 # Output: Container (Array)
 
-def guess_letter(letter)
+def guess_letters(letter)
   @guesses << letter
   @guesses
 end
@@ -68,14 +68,14 @@ end
   # ELSE the last letter doesn't match (FALSE)
   # ENDIF
 # ENDEACH
-# Output: The matched letter (string)
+# Output: True or False
 
 def compare_letters
   @secret_array = ["p","i","z","z","a"]
-  @guesses = ["d","b","c","a"]
+  @guesses = ["a","d","b","c","a"]
   @secret_array.each do |letter|
     if @guesses[-1] == letter
-      return @guesses[-1]
+      return true
     end
   end
 end
@@ -91,8 +91,8 @@ end
 
 # puts "Guess a letter"
 # guess = gets.chomp
-# p game.guess_letter(guess)
-# p game.compare_letters
+# p game.guess_letters(guess)
+# game.compare_letters
 
 # counter = 0
 # while counter < game.secret_array.length #Refactor do loop with break if game.secret_array.length == guess count or game.secret_array.length.times do?

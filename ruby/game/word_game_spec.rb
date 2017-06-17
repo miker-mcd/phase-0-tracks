@@ -8,14 +8,14 @@ describe WordGame do
   end
 
   it "stores a letter in a guess container" do
-    expect(new_game.guess_letter("a")).to eq ["a"]
+    expect(new_game.guess_letters("a")).to eq ["a"]
   end
 
   it "compares the last letter in guess container to each previous letter in the guess container" do
     expect(new_game.same_guess).to eq TRUE
   end
 
-  it "compares a letter in guess container with secret word letters" do
-    expect(new_game.compare_letters).to eq "a"
+  it "compares the last letter in guess container with secret word letters" do
+    expect(new_game.compare_letters).to eq TRUE
   end
 end
