@@ -1,5 +1,3 @@
-# # PSEUDOCODE
-
 # # BUSINESS CODE
 
 class WordGame
@@ -54,8 +52,8 @@ end
 # Output: The matched letter (string)
 
 def compare_letters
-  @secret_array = ["p","i","z","z","a"]
-  @guesses = ["d","b","c","a"]
+  # @secret_array = ["p","i","z","z","a"]
+  # @guesses = ["d","b","c","a"]
   @secret_array.each do |letter|
     if @guesses[-1] == letter
       return @guesses[-1]
@@ -64,3 +62,16 @@ def compare_letters
 end
 
 end
+
+# # USER INTERFACE
+
+puts "Enter a secret word"
+input = gets.chomp
+game = WordGame.new(input)
+p game.split_secret
+
+puts "Guess a letter"
+guess = gets.chomp
+p game.guess_letter(guess)
+
+p game.compare_letters
