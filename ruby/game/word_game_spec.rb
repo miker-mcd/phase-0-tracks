@@ -11,6 +11,10 @@ describe WordGame do
     expect(new_game.guess_letter("a")).to eq ["a"]
   end
 
+  it "compares a letter in guess container to any previous letter in the guess container" do
+    expect(new_game.same_guess).to eq "a"
+  end
+
   it "compares a letter in guess container with secret word letters" do
     expect(new_game.compare_letters).to eq "a"
   end

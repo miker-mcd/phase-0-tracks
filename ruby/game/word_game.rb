@@ -1,7 +1,6 @@
 # # BUSINESS CODE
 
 class WordGame
-  attr_reader :secret_array
 
   def initialize(word)
     @secret_word = word
@@ -46,6 +45,22 @@ def guess_letter(letter)
   @guesses
 end
 
+# Same Letter Method
+# Input: guess letters container (Array)
+# FOR each letter in the guesses container
+  # IF the last guess letter is the same as a previous letter in the guesses container, it is a match (TRUE)
+  # ELSE the last letter doesn't match (FALSE)
+# Output: True or False
+
+def same_guess
+  @guesses = ["a","d","b","c","a"]
+  @guesses.each do |letter|
+    if @guesses[-1] == letter
+      return @guesses[-1]
+    end
+  end
+end
+
 # Compare Guess Letter vs. Secret Word Letters
 # Input: None
 # IF the last letter in the second container is the same as any letter in the first container, it is a match (TRUE)
@@ -53,8 +68,8 @@ end
 # Output: The matched letter (string)
 
 def compare_letters
-  # @secret_array = ["p","i","z","z","a"]
-  # @guesses = ["d","b","c","a"]
+  @secret_array = ["p","i","z","z","a"]
+  @guesses = ["d","b","c","a"]
   @secret_array.each do |letter|
     if @guesses[-1] == letter
       return @guesses[-1]
@@ -66,17 +81,17 @@ end
 
 # # USER INTERFACE
 
-puts "Enter a secret word"
-input = gets.chomp
-game = WordGame.new(input)
-p game.split_secret
+# puts "Enter a secret word"
+# input = gets.chomp
+# game = WordGame.new(input)
+# p game.split_secret
 
-counter = 0
-while counter < game.secret_array.length
-  puts "Guess a letter"
-  guess = gets.chomp
-  p game.guess_letter(guess)
-  counter += 1
-end
+# counter = 0
+# while counter < game.secret_array.length
+#   puts "Guess a letter"
+#   guess = gets.chomp
+#   p game.guess_letter(guess)
+#   counter += 1
+# end
 
-p game.compare_letters
+# p game.compare_letters
