@@ -1,6 +1,7 @@
 # # BUSINESS CODE
 
 class WordGame
+  attr_reader :secret_array
 
   def initialize(word)
     @secret_word = word
@@ -70,8 +71,12 @@ input = gets.chomp
 game = WordGame.new(input)
 p game.split_secret
 
-puts "Guess a letter"
-guess = gets.chomp
-p game.guess_letter(guess)
+counter = 0
+while counter < game.secret_array.length
+  puts "Guess a letter"
+  guess = gets.chomp
+  p game.guess_letter(guess)
+  counter += 1
+end
 
 p game.compare_letters
