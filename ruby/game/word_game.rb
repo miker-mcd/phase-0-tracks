@@ -113,6 +113,11 @@ while count < (game.secret_array.length - 1)
       count -= 1
       # (game.secret_array.length + 1)
     end
+    if game.compare_letters != true
+      puts "Wrong, guess again"
+    else
+      puts "Correct!"
+    end
   count += 1
 end
 
