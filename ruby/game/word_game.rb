@@ -90,6 +90,10 @@ input = gets.chomp
 game = WordGame.new(input)
 p game.split_secret
 
+hidden_word = input.chars.each { |letter| letter.replace "_" }.join(" ")
+
+puts "#{hidden_word}"
+
 # FIRST LETTER
 puts "Guess a letter"
 guess = gets.chomp
