@@ -123,9 +123,13 @@ while count < (game.secret_array.length - 1)
       puts "Wrong, guess again"
     else
       puts "Correct!"
+      hidden_word[input.index(guess)] = guess
+      puts "#{hidden_word}"
     end
   count += 1
 end
+
+
 
 # # USER INTERFACE
 # puts "Enter a secret word"
