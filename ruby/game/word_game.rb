@@ -90,7 +90,7 @@ input = gets.chomp
 game = WordGame.new(input)
 p game.split_secret
 
-hidden_word = input.chars.each { |letter| letter.replace "_" }.join(" ")
+hidden_word = input.chars.each { |letter| letter.replace "_" }.join("")
 
 puts "#{hidden_word}"
 
@@ -101,7 +101,9 @@ p game.guess_letters(guess)
   if game.compare_letters != true
     puts "Wrong, guess again" # Guess count guesses remaining.
   else
-    puts "Correct!" # Display letter in secret word
+    puts "Correct!"
+    hidden_word[input.index(guess)] = guess
+    puts "#{hidden_word}"
   end
 
 # GUESS LETTERS
