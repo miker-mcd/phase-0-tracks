@@ -110,38 +110,32 @@ p game.guess_letters(guess)
 # GUESS LETTERS
 
 count = 0
-while count < (game.secret_array.length - 1)
+while count < (game.secret_array.length - 1) && hidden_word != input
 # (game.secret_array.length - 1).times do
   puts "Guess a letter"
   guess = gets.chomp
   p game.guess_letters(guess)
     if game.same_guess == true
       puts "You've already guessed #{guess}!"
-      # if game.compare_letters
-      #   # next
-      #   hidden_word[input.reverse.index(guess)] = guess
-      #   puts "#{input}"
-      # end
       count -= 1
       # (game.secret_array.length + 1)
     end
     if game.compare_letters != true
       puts "Wrong, guess again"
+      puts "#{hidden_word}"
     else
       puts "Correct!"
       correct_letter_index = input.chars.each_index.select {|index| input[index] == guess }
       correct_letter_index.each {|index| hidden_word[index] = guess}
       puts "#{hidden_word}"
-      # hidden_word[input.index(guess)] = guess
-      # puts "#{hidden_word}"
     end
   count += 1
 end
 
-if hidden_word == input
-  puts "You win!"
-else
-  "You lose!"
+if hidden_word != input
+  puts "You lose!"
+elsif hidden_word == input
+  "You win!"
 end
 
 # # USER INTERFACE
