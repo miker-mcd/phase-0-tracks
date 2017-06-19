@@ -97,9 +97,9 @@ puts "#{hidden_word}"
 # FIRST LETTER
 puts "Guess a letter"
 guess = gets.chomp
-p game.guess_letters(guess)
+game.guess_letters(guess)
   if game.compare_letters != true
-    puts "Wrong, guess again" # Guess count guesses remaining.
+    puts "Wrong guess! #{(input.length - 1)} guesses remaining." # Guess count guesses remaining.
   else
     puts "Correct!"
     correct_letter_index = input.chars.each_index.select {|index| input[index] == guess }
@@ -114,14 +114,14 @@ while count < (game.secret_array.length - 1) && hidden_word != input
 # (game.secret_array.length - 1).times do
   puts "Guess a letter"
   guess = gets.chomp
-  p game.guess_letters(guess)
+  game.guess_letters(guess)
     if game.same_guess == true
       puts "You've already guessed #{guess}!"
       count -= 1
       # (game.secret_array.length + 1)
     end
     if game.compare_letters != true
-      puts "Wrong, guess again"
+      puts "Wrong guess!"
       puts "#{hidden_word}"
     else
       puts "Correct!"
@@ -130,12 +130,11 @@ while count < (game.secret_array.length - 1) && hidden_word != input
       puts "#{hidden_word}"
     end
   count += 1
-end
-
-if hidden_word != input
-  puts "You lose!"
-elsif hidden_word == input
-  "You win!"
+    if hidden_word == input
+      puts "You win!"
+    else
+      puts "You lose!"
+    end
 end
 
 # # USER INTERFACE
