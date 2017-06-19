@@ -9,6 +9,7 @@ class WordGame
     @secret_array = []
   end
 
+# I would refactor this method and use built-in methods in the driver code to achieve the same result.
 # Secret Word Method
 # Input: Word (String)
 # Create a counter and set it to zero
@@ -32,8 +33,6 @@ class WordGame
 # Input: letter (String)
 # Create an empty container object
 # Push the letter to the container
-  # Add one to the counter
-  # Subtract one from the counter
 # Output: Container (Array)
 
 def guess_letters(letter)
@@ -51,12 +50,12 @@ end
 # Output: True or False
 
 def same_guess
-  # @guesses = ["a","b"]
   @guesses[0...-1].each do |letter|
     if @guesses[-1] == letter
       return true
     # else
     #   return false
+    # I couldn't figure out why this method would not return false if the last letter did not match.
     end
   end
 end
@@ -64,42 +63,46 @@ end
 # Compare Guess Letter vs. Secret Word Letters
 # Input: None
 # for EACH letter in the secret letters container
-  # IF the last letter in the second container is the same as any letter in the first container, it is a match (TRUE)
+  # IF the last letter in the guesses container is the same as any letter in the secret word container, it is a match (TRUE)
   # ELSE the last letter doesn't match (FALSE)
   # ENDIF
 # ENDEACH
 # Output: True or False
 
 def compare_letters
-  # @secret_array = ["t","a","b","l","e"]
-  # @guesses = ["d","v","c","a"]
   @secret_array.each do |letter|
     if @guesses[-1] == letter
       return true
     # else
     #   return false
+    # Again, I could not figure out why this method did not return false if the letter did not match any letter in the secret word array.
     end
   end
 end
 
 end
 
-# TEST CODE
+# DRIVER CODE
+
+# Ask the first user to enter a word for a second user to guess.
+puts "Let's start the game!"
 puts "Enter a secret word"
 input = gets.chomp
 game = WordGame.new(input)
-p game.split_secret
+game.split_secret
 
+# Display the hidden word to the second user.
 hidden_word = input.chars.each { |letter| letter.replace "_" }.join("")
 
 puts "#{hidden_word}"
 
-# FIRST LETTER
-puts "Guess a letter"
+# Start the game and ask the second user to guess a letter.
+puts "Player 2: Guess a letter."
 guess = gets.chomp
 game.guess_letters(guess)
   if game.compare_letters != true
-    puts "Wrong guess! #{(input.length - 1)} guesses remaining." # Guess count guesses remaining.
+    puts "Wrong guess!"
+    puts "#{hidden_word}"
   else
     puts "Correct!"
     correct_letter_index = input.chars.each_index.select {|index| input[index] == guess }
@@ -107,18 +110,15 @@ game.guess_letters(guess)
     puts "#{hidden_word}"
   end
 
-# GUESS LETTERS
-
+# Ask the second user to guess a letter repeatedly until they win or lose.
 count = 0
 while count < (game.secret_array.length - 1) && hidden_word != input
-# (game.secret_array.length - 1).times do
   puts "Guess a letter"
   guess = gets.chomp
   game.guess_letters(guess)
     if game.same_guess == true
-      puts "You've already guessed #{guess}!"
+      puts "You've already guessed #{guess}! This guess doesn't count."
       count -= 1
-      # (game.secret_array.length + 1)
     end
     if game.compare_letters != true
       puts "Wrong guess!"
@@ -130,15 +130,14 @@ while count < (game.secret_array.length - 1) && hidden_word != input
       puts "#{hidden_word}"
     end
   count += 1
+  # Display a congratulatory message if they win.
     if hidden_word == input
       puts "You win!"
-    else
-      puts "You lose!"
     end
 end
 
-# # USER INTERFACE
-# puts "Enter a secret word"
-# input = gets.chomp
-# game = WordGame.new(input)
-# p game.split_secret
+# Display a taunting message if they lose.
+# I was not able to figure out why I couldn't create one conditional to handle both a win and lose message.
+if hidden_word != input
+  puts "Sorry, you lose!"
+end
