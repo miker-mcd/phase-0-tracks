@@ -103,8 +103,7 @@ p game.guess_letters(guess)
   else
     puts "Correct!"
     correct_letter_index = input.chars.each_index.select {|index| input[index] == guess }
-    correct_letter_index.each {|index| hidden_word[index] = guess}git
-    # hidden_word[input.index(guess)] = guess
+    correct_letter_index.each {|index| hidden_word[index] = guess}
     puts "#{hidden_word}"
   end
 
@@ -130,8 +129,11 @@ while count < (game.secret_array.length - 1)
       puts "Wrong, guess again"
     else
       puts "Correct!"
-      hidden_word[input.index(guess)] = guess
+      correct_letter_index = input.chars.each_index.select {|index| input[index] == guess }
+      correct_letter_index.each {|index| hidden_word[index] = guess}
       puts "#{hidden_word}"
+      # hidden_word[input.index(guess)] = guess
+      # puts "#{hidden_word}"
     end
   count += 1
 end
