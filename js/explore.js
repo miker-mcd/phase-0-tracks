@@ -21,12 +21,21 @@ for (var i = (string.length - 1); i >= 0; i--) {
   console.log(new_string);
 }
 
+// reverse_string();
+
 function reverse_string(string) {
 var new_string = "";
 for (var i = (string.length - 1); i >= 0; i--) {
   var new_string = new_string + string[i];
 }
-  console.log(new_string);
+  return new_string
 }
 
-reverse_string("hello");
+var reverse_coffee = reverse_string("COFFEE");
+console.log(reverse_coffee);
+
+if (1 == 2) {
+  console.log(reverse_coffee);
+} else {
+  console.log("No coffee for you!");
+}
