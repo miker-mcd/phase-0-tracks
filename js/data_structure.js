@@ -7,8 +7,8 @@ var names = ["Mike", "Lucky", "Winner", "Cruz"];
 colors.push("coral");
 names.push("Champion");
 
-console.log(colors)
-console.log(names)
+console.log(colors);
+console.log(names);
 
 var horses = {};
 
