@@ -60,7 +60,13 @@ var fruits = ["apples","strawberries","bananas","mangoes", "watermelon"];
 
 longestWord(fruits);
 
+// Test findMatch function
 var person1 = {name: "Steven", age: 54, birthplace: "California", likesPizza: false};
 var person2 = {name: "Tamir", age: 54, birthplace: "Vancouver", likesTacos: true};
 
 console.log(findMatch(person1, person2));
+
+var pet1 = {name: "Peter", legs: 8, canWalk: false};
+var pet2 = {name: "Buddy", legs: 4, canBark: true};
+
+console.log(findMatch(pet1, pet2));
