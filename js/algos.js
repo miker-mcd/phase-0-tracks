@@ -32,10 +32,11 @@ function longest_word(array) {
 // Again, try to reason through the problem using the basics you've already learned, rather than looking up slick search functions that will do the job for you. We'd rather see you write code that you actually understand!
 
 // PSEUDOCODE
+// findMatch function
 // Input: Two objects
 // Output: True or False
-// FOR EACH key in first object
-  // IF AT LEAST one key-value pair matches a key-value pair in the second object
+// FOR EACH key in first object AND second object
+  // IF one key AND value pair matches a key AND value pair in the second object
     // RETURN True
   // ELSE no pairs match
     // RETURN False
@@ -44,12 +45,30 @@ function longest_word(array) {
 
 var person1 = {name: "Steven", age: 54};
 var person2 = {name: "Tamir", age: 54};
-
-for (var key in person1) {
-  console.log(person1[key]);
+function findMatch(object1, object2)
+  for (var key in object1 && object2) {
+  if (key in object1 == key in objec2 &&object1[key] == object2[key]) {
+    return true
+  } else {
+    return false
+  }
 }
+// for (var key in person1 && person2) {
+//   if (key in person1 == key in person2 &&person1[key] == person2[key]) {
+//     return true
+//   } else {
+//     return false
+//   }
+  // console.log(key in person1);
+  // console.log(key in person2);
+  // console.log(key);
+  // console.log(person1[key]);
+  // console.log(person2[key]);
+  // console.log(key + " " + person1[key]);
+// }
 
 // DRIVER CODE
+console
 
 var words = ["long","longest","longliest", "longer", "hi"];
 
