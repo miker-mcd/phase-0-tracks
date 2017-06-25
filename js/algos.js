@@ -52,13 +52,23 @@ var is_match = false;
 
 //Write a function that takes an integer for length, and builds and returns an array of strings of the given length. So if we ran your function with an argument of 3, we would get an array of 3 random words back (the words don't have to be actual sensical English words -- "nnnnfph" totally counts). The words should be of randomly varying length, with a minimum of 1 letter and a maximum of 10 letters. (This involves a new trick, generating a random number, that you'll have to look up, but the solution on how to do so is relatively straightforward.)
 
-// Random letter function
+// Random Letter function
 // Input: none
   // Create alphabet string
   // Create a random number between one and twenty-six
   // Use the random number to match to the same index position in the alphabet
   // RETURN the letter
 // Output: letter (string)
+
+// Random Word Function
+// Input: A random number between 1 and 10 representing the length of a word (integer)
+  // Set an empty container string to add letters to
+  // Set a counter to zero
+  // WHILE the counter is less than a random number between 1 and 10 representing the length of a word
+    // Generate a letter and add to the empty string container
+  // Increase the counter by one
+  // ENDWHILE
+// Output: A string of random letters (string)
 
 // DRIVER CODE
 
@@ -70,7 +80,13 @@ var letter = alphabet[Math.floor((Math.random() * 26) + 1)];
   return letter;
 }
 
-console.log(randomLetter());
+function randomWord() {
+var word = ""
+  for (var i = 0; i < Math.floor((Math.random() * 10) + 1); i++) {
+    var word = word + randomLetter();
+  }
+return word;
+}
 
 // Test longestWord function
 var words = ["long","longest","longliest", "longer", "hi"];
@@ -91,3 +107,5 @@ var pet1 = {name: "Peter", legs: 8, canWalk: false};
 var pet2 = {name: "Buddy", legs: 4, canBark: true};
 
 // console.log(findMatch(pet1, pet2));
+
+console.log(randomWord());
