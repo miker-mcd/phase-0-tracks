@@ -60,6 +60,12 @@ var is_match = false;
   // RETURN the letter
 // Output: letter (string)
 
+function randomLetter() {
+var alphabet = "abcdefghijklmnopqrstuvwxyz";
+var letter = alphabet[Math.floor((Math.random() * 26) + 1)];
+  return letter;
+}
+
 // Random Word Function
 // Input: A random number between 1 and 10 representing the length of a word (integer)
   // Set an empty container string to add letters to
@@ -70,16 +76,6 @@ var is_match = false;
   // ENDWHILE
 // Output: A string of random letters (string)
 
-// DRIVER CODE
-
-// Math.floor((Math.random() * 26) + 1);
-
-function randomLetter() {
-var alphabet = "abcdefghijklmnopqrstuvwxyz";
-var letter = alphabet[Math.floor((Math.random() * 26) + 1)];
-  return letter;
-}
-
 function randomWord() {
 var word = ""
   for (var i = 0; i < Math.floor((Math.random() * 10) + 1); i++) {
@@ -87,6 +83,28 @@ var word = ""
   }
 return word;
 }
+
+// Random Word List function
+// Input: A number representing the length of the list (integer)
+    // Set an empty container to add words to
+    // Set counter to zero
+    // WHILE counter is less than the given length of words in the list
+      // Create a random word and push into empty container
+      // Increase the counter by one
+    // ENDWHILE
+// Output: A container of random words of varying lengths (array)
+
+function randomWordList(num) {
+var wordList = []
+  for (i = 0; i < num; i++) {
+  wordList.push(randomWord());
+}
+return wordList
+}
+
+// DRIVER CODE
+
+// Math.floor((Math.random() * 26) + 1);
 
 // Test longestWord function
 var words = ["long","longest","longliest", "longer", "hi"];
@@ -108,4 +126,5 @@ var pet2 = {name: "Buddy", legs: 4, canBark: true};
 
 // console.log(findMatch(pet1, pet2));
 
-console.log(randomWord());
+// Test RandomWordList function
+console.log(randomWordList(3));
