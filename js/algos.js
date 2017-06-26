@@ -19,7 +19,7 @@ function longestWord(wordList) {
     wordList[0] = wordList[i]
     }
   }
-  console.log(wordList[0]);
+  return wordList[0];
 }
 
 // RELEASE 1: FIND A KEY-VALUE MATCH
@@ -50,27 +50,96 @@ var is_match = false;
 
 // RELEASE 2: GENERATE RANDOM TEST DATA
 
-//Write a function that takes an integer for length, and builds and returns an array of strings of the given length. So if we ran your function with an argument of 3, we would get an array of 3 random words back (the words don't have to be actual sensical English words -- "nnnnfph" totally counts). The words should be of randomly varying length, with a minimum of 1 letter and a maximum of 10 letters. (This involves a new trick, generating a random number, that you'll have to look up, but the solution on how to do so is relatively straightforward.)
+// Random Letter function
+// Input: none
+  // Create an alphabet reference
+  // Create a random number between one and twenty-six
+  // Use the random number to match to the same index position in the alphabet
+  // RETURN the letter
+// Output: letter (string)
 
+function randomLetter() {
+var alphabet = "abcdefghijklmnopqrstuvwxyz";
+var letter = alphabet[Math.floor((Math.random() * 26) + 1)];
+  return letter;
+}
+
+// Random Word Function
+// Input: A random number between 1 and 10 representing the length of a word (integer)
+  // Set an empty container string to add letters to
+  // Set a counter to zero
+  // WHILE the counter is less than a random number between 1 and 10 representing the length of a word
+    // Generate a letter and add to the empty string container
+  // Increase the counter by one
+  // ENDWHILE
+// Output: A string of random letters (string)
+
+function randomWord() {
+var word = ""
+  for (var i = 0; i < Math.floor((Math.random() * 10) + 1); i++) {
+    var word = word + randomLetter();
+  }
+return word;
+}
+
+// Random Word List function
+// Input: A number representing the length of the list (integer)
+    // Set an empty container to add words to
+    // Set counter to zero
+    // WHILE counter is less than the given length of words in the list
+      // Create a random word and push into empty container
+      // Increase the counter by one
+    // ENDWHILE
+// Output: A container of random words of varying lengths (array)
+
+function randomWordList(num) {
+var wordList = []
+  for (i = 0; i < num; i++) {
+  wordList.push(randomWord());
+}
+return wordList
+}
 
 // DRIVER CODE
 
 // Test longestWord function
 var words = ["long","longest","longliest", "longer", "hi"];
 
-longestWord(words);
+// longestWord(words);
 
 var fruits = ["apples","strawberries","bananas","mangoes", "watermelon"];
 
-longestWord(fruits);
+// longestWord(fruits);
 
 // Test findMatch function
 var person1 = {name: "Steven", age: 54, birthplace: "California", likesPizza: false};
 var person2 = {name: "Tamir", age: 54, birthplace: "Vancouver", likesTacos: true};
 
-console.log(findMatch(person1, person2));
+// console.log(findMatch(person1, person2));
 
 var pet1 = {name: "Peter", legs: 8, canWalk: false};
 var pet2 = {name: "Buddy", legs: 4, canBark: true};
 
-console.log(findMatch(pet1, pet2));
+// console.log(findMatch(pet1, pet2));
+
+// Test RandomWordList function
+// console.log(randomWordList(3));
+
+// Add driver code that does the following 10 times: generates an array, prints the array, feeds the array to your "longest word" function, and prints the result.
+
+// I am getting an endless loop with the driver code below and I wasn't able to find a solution to end the loop. I wanted to set the randomWordList of three random words as the property in the list object and then do another loop to iterate and print the values which would be set to the longestWord of each property.
+var list = {};
+
+for (var i = 0; i < 10; i++) {
+  // console.log(randomWordList(1));
+  if (i === 10) { break; }
+  list['randomWords'] = randomWordList(3);
+}
+// console.log(list);
+
+// for (var i = 0; i < 10; i++) {
+  // var list = randomWordList(3);
+  // console.log(list);
+  // var longestRandomWord = longestWord(list);
+  // console.log(longestRandomWord);
+// }
