@@ -105,11 +105,11 @@ return wordList
 // Test longestWord function
 var words = ["long","longest","longliest", "longer", "hi"];
 
-// longestWord(words);
+// console.log(longestWord(words));
 
 var fruits = ["apples","strawberries","bananas","mangoes", "watermelon"];
 
-// longestWord(fruits);
+// console.log(longestWord(fruits));
 
 // Test findMatch function
 var person1 = {name: "Steven", age: 54, birthplace: "California", likesPizza: false};
@@ -127,18 +127,17 @@ var pet2 = {name: "Buddy", legs: 4, canBark: true};
 
 // Add driver code that does the following 10 times: generates an array, prints the array, feeds the array to your "longest word" function, and prints the result.
 
-// I am getting an endless loop with the driver code below and I wasn't able to find a solution to end the loop. I wanted to set the randomWordList of three random words as the property in the list object and then do another loop to iterate and print the values which would be set to the longestWord of each property.
-
-var list = {};
-
-for (var i = 0; i < 10; i++) {
-  list[i] = randomWordList(3);
-}
-// console.log(list);
+// var list = {};
 
 // for (var i = 0; i < 10; i++) {
-  // var list = randomWordList(3);
-  // console.log(list);
-  // var longestRandomWord = longestWord(list);
-  // console.log(longestRandomWord);
+  // console.log(randomWordList(3));
+  // list[i] = randomWordList(3);
 // }
+// console.log(list);
+
+for (var i = 0; i < 10; i++) {
+  var list = randomWordList(3);
+  console.log(list);
+  var longestRandomWord = longestWord(list);
+  console.log(longestRandomWord);
+}
