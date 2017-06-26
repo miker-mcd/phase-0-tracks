@@ -94,7 +94,7 @@ return word;
 
 function randomWordList(num) {
 var wordList = []
-  for (i = 0; i < num; i++) {
+  for (j = 0; j < num; j++) {
   wordList.push(randomWord());
 }
 return wordList
@@ -128,12 +128,11 @@ var pet2 = {name: "Buddy", legs: 4, canBark: true};
 // Add driver code that does the following 10 times: generates an array, prints the array, feeds the array to your "longest word" function, and prints the result.
 
 // I am getting an endless loop with the driver code below and I wasn't able to find a solution to end the loop. I wanted to set the randomWordList of three random words as the property in the list object and then do another loop to iterate and print the values which would be set to the longestWord of each property.
+
 var list = {};
 
 for (var i = 0; i < 10; i++) {
-  // console.log(randomWordList(1));
-  if (i === 10) { break; }
-  list['randomWords'] = randomWordList(3);
+  list[i] = randomWordList(3);
 }
 // console.log(list);
 
