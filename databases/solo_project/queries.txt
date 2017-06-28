@@ -67,3 +67,38 @@ sqlite> SELECT * FROM council;
 7|Scott Sherman|7|2012-12-01|1
 8|David Alvarez|8|2010-12-01|2
 9|Georgette Gomez|9|2016-12-12|2
+
+Try a few different joins in your database, and record the commands and the output.
+
+sqlite> SELECT mem_name, district_num, party_name
+   ...> FROM council
+   ...> LEFT JOIN parties
+   ...> ON council.party_id = parties.party_num;
+Barbara Bry|1|Democrat
+Lorie Zapf|2|Republican
+Myrtle Cole|4|Democrat
+Mark Kersey|5|Republican
+Chris Cate|6|Republican
+Scott Sherman|7|Republican
+David Alvarez|8|Democrat
+Georgette Gomez|9|Democrat
+
+sqlite> SELECT *
+   ...> FROM council
+   ...> CROSS JOIN parties;
+1|Barbara Bry|1|2016-12-12|2|1|Republican
+1|Barbara Bry|1|2016-12-12|2|2|Democrat
+2|Lorie Zapf|2|2014-12-10|1|1|Republican
+2|Lorie Zapf|2|2014-12-10|1|2|Democrat
+4|Myrtle Cole|4|2013-06-03|2|1|Republican
+4|Myrtle Cole|4|2013-06-03|2|2|Democrat
+5|Mark Kersey|5|2012-12-01|1|1|Republican
+5|Mark Kersey|5|2012-12-01|1|2|Democrat
+6|Chris Cate|6|2014-12-10|1|1|Republican
+6|Chris Cate|6|2014-12-10|1|2|Democrat
+7|Scott Sherman|7|2012-12-01|1|1|Republican
+7|Scott Sherman|7|2012-12-01|1|2|Democrat
+8|David Alvarez|8|2010-12-01|2|1|Republican
+8|David Alvarez|8|2010-12-01|2|2|Democrat
+9|Georgette Gomez|9|2016-12-12|2|1|Republican
+9|Georgette Gomez|9|2016-12-12|2|2|Democrat
