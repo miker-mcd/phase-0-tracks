@@ -1,0 +1,10 @@
+Display the information in one table (either table is fine).
+
+
+Update an item that meets some condition (you can choose a condition that makes sense).
+
+Display the information in both tables using one query.
+
+Display a narrower selection of columns (fewer columns than all of them, in other words) from both tables using one query.
+
+Delete an item that meets some condition (you can choose a condition that makes sense).
