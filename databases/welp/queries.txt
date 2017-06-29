@@ -5,3 +5,10 @@ sqlite> SELECT users.first_name, users.last_name, businesses.name, reviews.stars
 Bradford|Pitt|Lotus Yoga|3|Too hot, in a bad way
 Mandy|Kaling|Sushi World|5|Good quality fish
 Steven|Wonder|The Beagle Nightclub|2|Only sells cider! LAME!
+
+sqlite> SELECT users.first_name, users.last_name, reviews.stars, reviews.comment, businesses.name
+   ...> FROM businesses
+   ...> JOIN reviews ON bus_id = reviews.business_id
+   ...> JOIN users ON user_id = reviews.users_id
+   ...> WHERE bus_id=1;
+Bradford|Pitt|3|Too hot, in a bad way|Lotus Yoga
