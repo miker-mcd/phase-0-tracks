@@ -29,17 +29,17 @@ def create_entry(db, diastolic, systolic, date, time)
 end
 
 # Make a log of entries
-day = Date.new(2017,05,31)
-3.times do
-# generate a random diastolic number 70-110
-  dia = (70..110).to_a.sample #<= 88
-# generate a random systolic number between 100-180
-  sys = (100..180).to_a.sample # <= 137
-# a recurring day - 2017-06-(01-30)
-  day = day.next_day
-  # day = day.to_s #<= "2017-06-01"
-  create_entry($DB, dia, sys, (day.to_s), '7:00:00')
-end
+# day = Date.new(2017,05,31)
+# 3.times do
+# # generate a random diastolic number 70-110
+#   dia = (70..110).to_a.sample #<= 88
+# # generate a random systolic number between 100-180
+#   sys = (100..180).to_a.sample # <= 137
+# # a recurring day - 2017-06-(01-30)
+#   day = day.next_day
+#   # day = day.to_s #<= "2017-06-01"
+#   create_entry($DB, dia, sys, (day.to_s), '7:00:00')
+# end
 
 def print_table
   table = $DB.execute("SELECT diastolic, systolic, date FROM bloodpressure")
