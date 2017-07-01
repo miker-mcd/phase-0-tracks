@@ -43,7 +43,7 @@ end
 
 # print the results of last 10 entries along with average diastolic and systolic reading, highest diastolic/systolic and lowest diastolic/systolic
 
-def last_ten_results
+def last_ten_entries
   results = $DB.execute(<<-SQL
     SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit 10)
     ORDER BY bp_id ASC
@@ -75,4 +75,4 @@ end
 # TEST CODE
 
 # print_table
-last_ten_results
+last_ten_entries
