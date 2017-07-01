@@ -49,9 +49,15 @@ def last_ten_entries
     ORDER BY bp_id ASC
     SQL
     )
+  puts "Last 10 entries:"
+  puts "-----------------------------"
+  puts
   results.each do |entry|
     puts "#{entry['date']}- DIA: #{entry['diastolic']} SYS: #{entry['systolic']}."
   end
+  puts
+  puts "-----------------------------"
+  puts
 end
 
 def averages
@@ -65,16 +71,29 @@ def averages
     dia_total += entry['diastolic']
   end
   dia_avg = dia_total / results.count
-  puts "Average DIA: #{dia_avg}."
+  puts "Total Average DIA: #{dia_avg}."
   sys_total = 0
   results.each do |entry|
     sys_total += entry['systolic']
   end
   sys_avg = sys_total / results.count
-  puts "Average SYS: #{sys_avg}."
+  puts "Total Average SYS: #{sys_avg}."
 end
 
-
+def highest_dia_sys
+  high_dia = $DB.execute(<<-SQL
+    SELECT diastolic FROM bloodpressure
+    ORDER BY diastolic DESC LIMIT 1
+    SQL
+    )
+  high_sys = $DB.execute(<<-SQL
+    SELECT systolic FROM bloodpressure
+    ORDER BY systolic DESC LIMIT 1
+    SQL
+    )
+    puts "Highest DIA: #{high_dia[0]['diastolic']}."
+    puts "Highest SYS: #{high_sys[0]['systolic']}."
+end
 
 def print_table
   table = $DB.execute("SELECT diastolic, systolic, date FROM bloodpressure")
@@ -98,4 +117,5 @@ end
 
 # print_table
 # last_ten_entries
-averages
+# averages
+# highest_dia_sys
