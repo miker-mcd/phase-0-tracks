@@ -28,7 +28,7 @@ def create_entry(db, diastolic, systolic, date, time)
   $DB.execute("INSERT INTO bloodpressure (diastolic, systolic, date, time) VALUES (?, ?, ?, ?)", [diastolic, systolic, date, time])
 end
 
-# # Make a log of entries
+# # Make a sample log of entries
 # day = Date.new(2017,05,31)
 # 30.times do
 # # generate a random diastolic number 70-110
@@ -41,6 +41,19 @@ end
 #   create_entry($DB, dia, sys, (day.to_s), '7:00:00')
 # end
 
+# print the results of last 10 entries along with average diastolic and systolic reading, highest diastolic/systolic and lowest diastolic/systolic
+
+def last_ten_results
+  results = $DB.execute(<<-SQL
+    SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit 10)
+    ORDER BY bp_id ASC
+    SQL
+    )
+  results.each do |entry|
+    puts "#{entry['date']}- DIA: #{entry['diastolic']} SYS: #{entry['systolic']}."
+  end
+end
+
 def print_table
   table = $DB.execute("SELECT diastolic, systolic, date FROM bloodpressure")
   table.each do |entry|
@@ -49,8 +62,6 @@ def print_table
 end
 
 # TO DO LIST
-
-# print the results of last 10 entries along with average diastolic and systolic reading, highest diastolic/systolic and lowest diastolic/systolic
 
 # Give user positive feedback if average is lower than recommended bp for age/weight of user
 # Give supportive feedback if avg is higher using table of recommendations based on severity of difference between user and recommended average ex. diastolic or systolic is 10 points above national then message is "don't consume alcohol for one week"
@@ -63,4 +74,5 @@ end
 
 # TEST CODE
 
-print_table
+# print_table
+last_ten_results
