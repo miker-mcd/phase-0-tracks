@@ -54,6 +54,28 @@ def last_ten_entries
   end
 end
 
+def averages
+  results = $DB.execute(<<-SQL
+    SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit 10)
+    ORDER BY bp_id ASC
+    SQL
+    )
+  dia_total = 0
+  results.each do |entry|
+    dia_total += entry['diastolic']
+  end
+  dia_avg = dia_total / results.count
+  puts "Average DIA: #{dia_avg}."
+  sys_total = 0
+  results.each do |entry|
+    sys_total += entry['systolic']
+  end
+  sys_avg = sys_total / results.count
+  puts "Average SYS: #{sys_avg}."
+end
+
+
+
 def print_table
   table = $DB.execute("SELECT diastolic, systolic, date FROM bloodpressure")
   table.each do |entry|
@@ -75,4 +97,5 @@ end
 # TEST CODE
 
 # print_table
-last_ten_entries
+# last_ten_entries
+averages
