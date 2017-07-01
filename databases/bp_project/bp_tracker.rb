@@ -15,21 +15,40 @@ SQL
 
 $DB.execute(create_table_cmd)
 
-def entry(db, diastolic, systolic, date, time)
+# Let a user enter a blood pressure reading and save it in the table
+def create_entry(db, diastolic, systolic, date, time)
+  # query = <<-SQL
+  #   INSERT INTO bloodpressure (diastolic, systolic, date, time)
+  #   VALUES (?, ?, ?, ?)
+  #   SQL
+  #   , [diastolic, systolic, date, time]
+  #   $DB.execute(query)
+    # $DB.execute(query, (diastolic, systolic, date, time))
+    # , [diastolic, systolic, date, time])
   $DB.execute("INSERT INTO bloodpressure (diastolic, systolic, date, time) VALUES (?, ?, ?, ?)", [diastolic, systolic, date, time])
+end
+
+# Make a log of entries
+day = Date.new(2017,05,31)
+3.times do
+# generate a random diastolic number 70-110
+  dia = (70..110).to_a.sample #<= 88
+# generate a random systolic number between 100-180
+  sys = (100..180).to_a.sample # <= 137
+# a recurring day - 2017-06-(01-30)
+  day = day.next_day
+  # day = day.to_s #<= "2017-06-01"
+  create_entry($DB, dia, sys, (day.to_s), '7:00:00')
 end
 
 def print_table
   table = $DB.execute("SELECT diastolic, systolic, date FROM bloodpressure")
   table.each do |entry|
-    puts "#{entry['date']}- Diastolic: #{entry['diastolic']} over #{entry['systolic']}."
+    puts "#{entry['date']}- DIA: #{entry['diastolic']} SYS: #{entry['systolic']}."
   end
-  # puts "Your blood pressure was #{table[0][1]} over #{table[0][2]}, on #{table[0][3]}."
 end
 
 # TO DO LIST
-
-# Let a user enter a blood pressure reading and save it in the table
 
 # print the results of last 10 entries along with average diastolic and systolic reading, highest diastolic/systolic and lowest diastolic/systolic
 
@@ -44,5 +63,4 @@ end
 
 # TEST CODE
 
-# entry(db, 130, 80, '2017-06-30', '8:00:00')
 print_table
