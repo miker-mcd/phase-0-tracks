@@ -28,9 +28,9 @@ def create_entry(db, diastolic, systolic, date, time)
   $DB.execute("INSERT INTO bloodpressure (diastolic, systolic, date, time) VALUES (?, ?, ?, ?)", [diastolic, systolic, date, time])
 end
 
-# Make a log of entries
+# # Make a log of entries
 # day = Date.new(2017,05,31)
-# 3.times do
+# 30.times do
 # # generate a random diastolic number 70-110
 #   dia = (70..110).to_a.sample #<= 88
 # # generate a random systolic number between 100-180
