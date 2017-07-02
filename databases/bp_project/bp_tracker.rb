@@ -16,7 +16,7 @@ SQL
 $DB.execute(create_table_cmd)
 
 # Let a user enter a blood pressure reading and save it in the table
-def create_entry(db, diastolic, systolic, date, time)
+def create_entry(diastolic, systolic, date, time)
   # query = <<-SQL
   #   INSERT INTO bloodpressure (diastolic, systolic, date, time)
   #   VALUES (?, ?, ?, ?)
@@ -110,19 +110,22 @@ def feedback(sys_average, dia_average)
   end
 end
 
-def highest_dia_sys
+def highest_sys
   high_sys = $DB.execute(<<-SQL
     SELECT systolic FROM bloodpressure
     ORDER BY systolic DESC LIMIT 1
     SQL
     )
+  high_sys[0]['systolic']
+end
+
+def highest_dia
   high_dia = $DB.execute(<<-SQL
     SELECT diastolic FROM bloodpressure
     ORDER BY diastolic DESC LIMIT 1
     SQL
     )
-    puts "Highest SYS: #{high_sys[0]['systolic']}."
-    puts "Highest DIA: #{high_dia[0]['diastolic']}."
+  high_dia[0]['diastolic']
 end
 
 def print_table
@@ -146,7 +149,8 @@ end
 
 # print_table
 last_ten_entries
-highest_dia_sys
-puts "Total Average SYS: #{sys_average}."
-puts "Total Average DIA: #{dia_average}."
+puts "Highest SYS: #{highest_sys}"
+puts "Highest DIA: #{highest_dia}"
+puts "Total Average SYS: #{sys_average}"
+puts "Total Average DIA: #{dia_average}"
 feedback(sys_average, dia_average)
