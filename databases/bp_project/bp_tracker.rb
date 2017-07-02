@@ -53,14 +53,27 @@ def last_ten_entries
   puts "-----------------------------"
   puts
   results.each do |entry|
-    puts "#{entry['date']}- DIA: #{entry['diastolic']} SYS: #{entry['systolic']}."
+    puts "#{entry['date']}- DIA: #{entry['diastolic']} SYS: #{entry['systolic']}"
   end
   puts
   puts "-----------------------------"
   puts
 end
 
-def averages
+def sys_average
+  results = $DB.execute(<<-SQL
+    SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit 10)
+    ORDER BY bp_id ASC
+    SQL
+    )
+  sys_total = 0
+  results.each do |entry|
+    sys_total += entry['systolic']
+  end
+  sys_avg = sys_total / results.count
+end
+
+def dia_average
   results = $DB.execute(<<-SQL
     SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit 10)
     ORDER BY bp_id ASC
@@ -71,28 +84,45 @@ def averages
     dia_total += entry['diastolic']
   end
   dia_avg = dia_total / results.count
-  puts "Total Average DIA: #{dia_avg}."
-  sys_total = 0
-  results.each do |entry|
-    sys_total += entry['systolic']
+end
+
+# Give user positive feedback if average is lower than normal bp
+# normal sys less than 120, dia less than 80
+# Give supportive feedback if avg is
+# prehyper sys 120-139 OR dia 80-89
+# hyper stage 1 sys 140-159 OR dia 90-99
+# hyper stage 2 sys >= 160 or dia >= 100
+# Crisis sys >= 180 or dia >= 110
+def feedback(sys_average, dia_average)
+  sys = sys_average
+  dia = dia_average
+  case
+    when sys >= 180 || dia >= 110
+      puts "***EMERGENCY*** Your blood pressure is at a dangerous level. Visit an ER immediately."
+    when sys >= 160 || dia >= 100
+      puts "Hypertension Stage 2. Please schedule an appointment with your doctor for further treatment."
+    when sys > 140 || dia > 90
+        puts "Hypertension Stage 1. Remember to take your medication, avoid high-sodium foods, alcohol and reduce stress."
+    when sys > 120 || dia > 80
+        puts "Prehypertension. Try to get 7-8 hours of sleep every night."
+    else
+      puts "Normal Blood Pressure. Way to go!"
   end
-  sys_avg = sys_total / results.count
-  puts "Total Average SYS: #{sys_avg}."
 end
 
 def highest_dia_sys
-  high_dia = $DB.execute(<<-SQL
-    SELECT diastolic FROM bloodpressure
-    ORDER BY diastolic DESC LIMIT 1
-    SQL
-    )
   high_sys = $DB.execute(<<-SQL
     SELECT systolic FROM bloodpressure
     ORDER BY systolic DESC LIMIT 1
     SQL
     )
-    puts "Highest DIA: #{high_dia[0]['diastolic']}."
+  high_dia = $DB.execute(<<-SQL
+    SELECT diastolic FROM bloodpressure
+    ORDER BY diastolic DESC LIMIT 1
+    SQL
+    )
     puts "Highest SYS: #{high_sys[0]['systolic']}."
+    puts "Highest DIA: #{high_dia[0]['diastolic']}."
 end
 
 def print_table
@@ -104,10 +134,9 @@ end
 
 # TO DO LIST
 
-# Give user positive feedback if average is lower than recommended bp for age/weight of user
-# Give supportive feedback if avg is higher using table of recommendations based on severity of difference between user and recommended average ex. diastolic or systolic is 10 points above national then message is "don't consume alcohol for one week"
-
 # if new entry date is more than 10 days old, remind user to take blood pressure at least once per week
+
+# if user enters a bp entry at least once every seven days give positive feedback
 
 # display option of 30 or 60 previous entries with respective averages highs and lows
 
@@ -116,6 +145,8 @@ end
 # TEST CODE
 
 # print_table
-# last_ten_entries
-# averages
-# highest_dia_sys
+last_ten_entries
+highest_dia_sys
+puts "Total Average SYS: #{sys_average}."
+puts "Total Average DIA: #{dia_average}."
+feedback(sys_average, dia_average)
