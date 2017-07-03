@@ -71,7 +71,7 @@ def last_n_entries(days_request)
   puts "-----------------------------"
   puts
   results.each do |entry|
-    puts "#{entry['bp_id']} #{entry['date']}- DIA: #{entry['diastolic']} SYS: #{entry['systolic']}"
+    puts "#{entry['bp_id']} #{entry['date']} DIA: #{entry['diastolic']} SYS: #{entry['systolic']}"
   end
   puts
   puts "-----------------------------"
@@ -126,14 +126,34 @@ def feedback(sys_average, dia_average)
   end
 end
 
-def highest_sys
-  high_sys = $DB.execute(<<-SQL
-    SELECT systolic FROM bloodpressure
-    ORDER BY systolic DESC LIMIT 1
-    SQL
-    )
-  high_sys[0]['systolic']
+def dia_average(days_request)
+  number = days_request
+  results = $DB.execute(
+    "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
+    ORDER BY bp_id ASC", [number])
+  dia_total = 0
+  results.each do |entry|
+    dia_total += entry['diastolic']
+  end
+  dia_avg = dia_total / results.count
 end
+
+def highest_sys(days_request)
+  number = days_request
+  high_sys = $DB.execute(
+    "SELECT systolic FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
+    ORDER BY systolic DESC LIMIT 1", [number])
+  sys = high_sys[0]['systolic']
+end
+
+# def highest_sys
+#   high_sys = $DB.execute(<<-SQL
+#     SELECT systolic FROM bloodpressure
+#     ORDER BY systolic DESC LIMIT 1
+#     SQL
+#     )
+#   high_sys[0]['systolic']
+# end
 
 def highest_dia
   high_dia = $DB.execute(<<-SQL
@@ -153,6 +173,7 @@ end
 puts "Type a number of days to view entries (10, 30 or 60)"
 number_of_days = gets.chomp.to_i
 last_n_entries(number_of_days)
+puts "Highest SYS: #{highest_sys(number_of_days)}"
 # puts "Highest SYS: #{highest_sys}"
 # puts "Highest DIA: #{highest_dia}"
 puts "Total Average SYS: #{sys_average(number_of_days)}"
