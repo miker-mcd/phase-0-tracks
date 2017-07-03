@@ -30,7 +30,7 @@ def new_user(name, age)
 end
 
 # Let a user enter a blood pressure reading and save it in the table
-def new_entry(date, systolic, diastolic)
+def new_entry(date, systolic, diastolic, user_id)
   # query = <<-SQL
   #   INSERT INTO bloodpressure (diastolic, systolic, date, time)
   #   VALUES (?, ?, ?, ?)
@@ -39,21 +39,20 @@ def new_entry(date, systolic, diastolic)
   #   $BP.execute(query)
     # $BP.execute(query, (diastolic, systolic, date, time))
     # , [diastolic, systolic, date, time])
-  $BP.execute("INSERT INTO bloodpressure (date, systolic, diastolic) VALUES (?, ?, ?)", [date, systolic, diastolic])
+  $BP.execute("INSERT INTO bloodpressure (date, systolic, diastolic, user_id) VALUES (?, ?, ?, ?)", [date, systolic, diastolic, user_id])
 end
 
-# # Make a sample log of entries
-# day = Date.new(2017,05,31)
-# 30.times do
-# # generate a random diastolic number 70-110
-#   dia = (70..110).to_a.sample #<= 88
-# # generate a random systolic number between 100-180
-#   sys = (100..180).to_a.sample # <= 137
-# # a recurring day - 2017-06-(01-30)
-#   day = day.next_day
-#   # day = day.to_s #<= "2017-06-01"
-#   create_entry($BP, dia, sys, (day.to_s), '7:00:00')
-# end
+# Make a sample log of entries
+day = Date.new(2017,03,31)
+60.times do
+# generate a random systolic number between 100-180
+  sys = (100..180).to_a.sample
+# generate a random diastolic number 70-110
+  dia = (70..110).to_a.sample
+# a recurring day - 2017-06-(01-30)
+  day = day.next_day
+  new_entry((day.to_s), sys, dia, 3)
+end
 
 def last_date
   date = $BP.execute(<<-SQL
@@ -190,4 +189,4 @@ end
 # end
 # new_user("Homer Simpson", 39)
 # new_user("Ned Flanders", 60)
-new_user("Edna Krabappel", 41)
+# new_user("Edna Krabappel", 41)
