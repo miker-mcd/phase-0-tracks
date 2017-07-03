@@ -148,23 +148,11 @@ end
 
 def highest_dia(days_request)
   number = days_request
-  high_dia = $DB.execute(#<<-SQL
+  high_dia = $DB.execute(
     "SELECT diastolic FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
     ORDER BY diastolic DESC LIMIT 1", [number])
-    # SQL
-    # )
   dia = high_dia[0]['diastolic']
-# puts "Highest DIA: #{dia}"
 end
-
-# def highest_dia
-#   high_dia = $DB.execute(<<-SQL
-#     SELECT diastolic FROM bloodpressure
-#     ORDER BY diastolic DESC LIMIT 1
-#     SQL
-#     )
-#   high_dia[0]['diastolic']
-# end
 
 # TO DO LIST
 
@@ -177,14 +165,14 @@ number_of_days = gets.chomp.to_i
 last_n_entries(number_of_days)
 puts "Highest SYS: #{highest_sys(number_of_days)}"
 puts "Highest DIA: #{highest_dia(number_of_days)}"
-puts "Total Average SYS: #{sys_average(number_of_days)}"
-puts "Total Average DIA: #{dia_average(number_of_days)}"
-# feedback(sys_average, dia_average)
+puts "Average SYS: #{sys_average(number_of_days)}"
+puts "Average DIA: #{dia_average(number_of_days)}"
+feedback(sys_average(number_of_days), dia_average(number_of_days))
 
 # if new entry date is more than 10 days old, remind user to take blood pressure at least once per week
 # if user enters a bp entry at least once every ten days give positive feedback
-# if (new_date - last_date).to_i > 10
-#   puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
-# else
-#   puts "Checking your BP regularly is a great health habit. Keep it up!"
-# end
+if (new_date - last_date).to_i > 10
+  puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
+else
+  puts "Checking your BP regularly is a great health habit. Keep it up!"
+end
