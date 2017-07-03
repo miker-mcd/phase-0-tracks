@@ -28,8 +28,6 @@ def new_entry(diastolic, systolic, date, time)
   $DB.execute("INSERT INTO bloodpressure (diastolic, systolic, date, time) VALUES (?, ?, ?, ?)", [diastolic, systolic, date, time])
 end
 
-# if new entry date is more than 10 days old, remind user to take blood pressure at least once per week
-
 def last_date
   date = $DB.execute(<<-SQL
     SELECT date FROM bloodpressure
@@ -48,7 +46,6 @@ def new_date
     )
     new_date = date[0]['date'].split("-")
     day = Date.new(new_date[0].to_i, new_date[1].to_i, new_date[2].to_i)
-  # difference = entry_date[0]['date'] - entry_date[1]['date']
 end
 
 # # Make a sample log of entries
@@ -63,6 +60,27 @@ end
 #   # day = day.to_s #<= "2017-06-01"
 #   create_entry($DB, dia, sys, (day.to_s), '7:00:00')
 # end
+
+def days_request
+  puts "Type a number of days to view entries (10, 30 or 60)"
+  number = gets.chomp.to_i
+end
+
+def last_n_entries(days_request)
+  number = days_request
+  results = $DB.execute(
+    "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC LIMIT (?))
+    ORDER BY bp_id ASC", [number])
+  puts "Last #{number} entries:"
+  puts "-----------------------------"
+  puts
+  results.each do |entry|
+    puts "#{entry['bp_id']} #{entry['date']}- DIA: #{entry['diastolic']} SYS: #{entry['systolic']}"
+  end
+  puts
+  puts "-----------------------------"
+  puts
+end
 
 # print the results of last 10 entries along with average diastolic and systolic reading, highest diastolic/systolic and lowest diastolic/systolic
 
@@ -160,8 +178,6 @@ end
 
 # TO DO LIST
 
-# if user enters a bp entry at least once every seven days give positive feedback
-
 # display option of 30 or 60 previous entries with respective averages highs and lows
 
 # handle multiple users with their own blood pressure logs
@@ -169,18 +185,17 @@ end
 # TEST CODE
 
 # print_table
-last_ten_entries
+# last_ten_entries
 # puts "Highest SYS: #{highest_sys}"
 # puts "Highest DIA: #{highest_dia}"
 # puts "Total Average SYS: #{sys_average}"
 # puts "Total Average DIA: #{dia_average}"
-feedback(sys_average, dia_average)
-# new_entry(70, 135, '2017-07-09', '8:00:00')
-# last_ten_entries
-new_entry(75, 128, '2017-07-25', '8:00:00')
-last_ten_entries
-if (new_date - last_date).to_i > 10
-  puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
-else
-  puts "Checking your BP regularly is a great health habit. Keep it up!"
-end
+# feedback(sys_average, dia_average)
+# if new entry date is more than 10 days old, remind user to take blood pressure at least once per week
+# if user enters a bp entry at least once every ten days give positive feedback
+# if (new_date - last_date).to_i > 10
+#   puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
+# else
+#   puts "Checking your BP regularly is a great health habit. Keep it up!"
+# end
+last_n_entries(days_request)
