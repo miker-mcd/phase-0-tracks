@@ -146,23 +146,25 @@ def highest_sys(days_request)
   sys = high_sys[0]['systolic']
 end
 
-# def highest_sys
-#   high_sys = $DB.execute(<<-SQL
-#     SELECT systolic FROM bloodpressure
-#     ORDER BY systolic DESC LIMIT 1
+def highest_dia(days_request)
+  number = days_request
+  high_dia = $DB.execute(#<<-SQL
+    "SELECT diastolic FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
+    ORDER BY diastolic DESC LIMIT 1", [number])
+    # SQL
+    # )
+  dia = high_dia[0]['diastolic']
+# puts "Highest DIA: #{dia}"
+end
+
+# def highest_dia
+#   high_dia = $DB.execute(<<-SQL
+#     SELECT diastolic FROM bloodpressure
+#     ORDER BY diastolic DESC LIMIT 1
 #     SQL
 #     )
-#   high_sys[0]['systolic']
+#   high_dia[0]['diastolic']
 # end
-
-def highest_dia
-  high_dia = $DB.execute(<<-SQL
-    SELECT diastolic FROM bloodpressure
-    ORDER BY diastolic DESC LIMIT 1
-    SQL
-    )
-  high_dia[0]['diastolic']
-end
 
 # TO DO LIST
 
@@ -174,8 +176,7 @@ puts "Type a number of days to view entries (10, 30 or 60)"
 number_of_days = gets.chomp.to_i
 last_n_entries(number_of_days)
 puts "Highest SYS: #{highest_sys(number_of_days)}"
-# puts "Highest SYS: #{highest_sys}"
-# puts "Highest DIA: #{highest_dia}"
+puts "Highest DIA: #{highest_dia(number_of_days)}"
 puts "Total Average SYS: #{sys_average(number_of_days)}"
 puts "Total Average DIA: #{dia_average(number_of_days)}"
 # feedback(sys_average, dia_average)
