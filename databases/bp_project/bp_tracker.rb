@@ -25,6 +25,10 @@ SQL
 $BP.execute(create_bp_table)
 $BP.execute(create_users_table)
 
+def new_user(name, age)
+  $BP.execute("INSERT INTO users (name, age) VALUES (?, ?)", [name, age])
+end
+
 # Let a user enter a blood pressure reading and save it in the table
 def new_entry(date, systolic, diastolic)
   # query = <<-SQL
@@ -37,6 +41,19 @@ def new_entry(date, systolic, diastolic)
     # , [diastolic, systolic, date, time])
   $BP.execute("INSERT INTO bloodpressure (date, systolic, diastolic) VALUES (?, ?, ?)", [date, systolic, diastolic])
 end
+
+# # Make a sample log of entries
+# day = Date.new(2017,05,31)
+# 30.times do
+# # generate a random diastolic number 70-110
+#   dia = (70..110).to_a.sample #<= 88
+# # generate a random systolic number between 100-180
+#   sys = (100..180).to_a.sample # <= 137
+# # a recurring day - 2017-06-(01-30)
+#   day = day.next_day
+#   # day = day.to_s #<= "2017-06-01"
+#   create_entry($BP, dia, sys, (day.to_s), '7:00:00')
+# end
 
 def last_date
   date = $BP.execute(<<-SQL
@@ -57,19 +74,6 @@ def new_date
     new_date = date[0]['date'].split("-")
     day = Date.new(new_date[0].to_i, new_date[1].to_i, new_date[2].to_i)
 end
-
-# # Make a sample log of entries
-# day = Date.new(2017,05,31)
-# 30.times do
-# # generate a random diastolic number 70-110
-#   dia = (70..110).to_a.sample #<= 88
-# # generate a random systolic number between 100-180
-#   sys = (100..180).to_a.sample # <= 137
-# # a recurring day - 2017-06-(01-30)
-#   day = day.next_day
-#   # day = day.to_s #<= "2017-06-01"
-#   create_entry($BP, dia, sys, (day.to_s), '7:00:00')
-# end
 
 # display option of 10, 30 or 60 previous entries with average diastolic and systolic reading, highest diastolic/systolic and lowest diastolic/systolic
 def last_n_entries(days_request)
@@ -166,8 +170,6 @@ end
 
 # TO DO LIST
 
-# handle multiple users with their own blood pressure logs
-
 # TEST CODE
 
 # puts "Type a number of days to view entries (10, 30 or 60)"
@@ -186,3 +188,6 @@ end
 # else
 #   puts "Checking your BP regularly is a great health habit. Keep it up!"
 # end
+# new_user("Homer Simpson", 39)
+# new_user("Ned Flanders", 60)
+new_user("Edna Krabappel", 41)
