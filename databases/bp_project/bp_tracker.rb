@@ -61,11 +61,7 @@ end
 #   create_entry($DB, dia, sys, (day.to_s), '7:00:00')
 # end
 
-def days_request
-  puts "Type a number of days to view entries (10, 30 or 60)"
-  number = gets.chomp.to_i
-end
-
+# display option of 10, 30 or 60 previous entries with average diastolic and systolic reading, highest diastolic/systolic and lowest diastolic/systolic
 def last_n_entries(days_request)
   number = days_request
   results = $DB.execute(
@@ -82,31 +78,13 @@ def last_n_entries(days_request)
   puts
 end
 
-# print the results of last 10 entries along with average diastolic and systolic reading, highest diastolic/systolic and lowest diastolic/systolic
-
-def last_ten_entries
-  results = $DB.execute(<<-SQL
-    SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit 10)
-    ORDER BY bp_id ASC
-    SQL
-    )
-  puts "Last 10 entries:"
-  puts "-----------------------------"
-  puts
-  results.each do |entry|
-    puts "#{entry['bp_id']} #{entry['date']}- DIA: #{entry['diastolic']} SYS: #{entry['systolic']}"
-  end
-  puts
-  puts "-----------------------------"
-  puts
-end
-
-def sys_average
-  results = $DB.execute(<<-SQL
-    SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit 10)
-    ORDER BY bp_id ASC
-    SQL
-    )
+def sys_average(days_request)
+  number = days_request
+  results = $DB.execute(#<<-SQL
+    "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
+    ORDER BY bp_id ASC", [number])
+    # SQL
+    # )
   sys_total = 0
   results.each do |entry|
     sys_total += entry['systolic']
@@ -169,28 +147,21 @@ def highest_dia
   high_dia[0]['diastolic']
 end
 
-def print_table
-  table = $DB.execute("SELECT diastolic, systolic, date FROM bloodpressure")
-  table.each do |entry|
-    puts "#{entry['date']}- DIA: #{entry['diastolic']} SYS: #{entry['systolic']}."
-  end
-end
-
 # TO DO LIST
-
-# display option of 30 or 60 previous entries with respective averages highs and lows
 
 # handle multiple users with their own blood pressure logs
 
 # TEST CODE
 
-# print_table
-# last_ten_entries
+puts "Type a number of days to view entries (10, 30 or 60)"
+number_of_days = gets.chomp.to_i
+last_n_entries(number_of_days)
 # puts "Highest SYS: #{highest_sys}"
 # puts "Highest DIA: #{highest_dia}"
-# puts "Total Average SYS: #{sys_average}"
+puts "Total Average SYS: #{sys_average(number_of_days)}"
 # puts "Total Average DIA: #{dia_average}"
 # feedback(sys_average, dia_average)
+
 # if new entry date is more than 10 days old, remind user to take blood pressure at least once per week
 # if user enters a bp entry at least once every ten days give positive feedback
 # if (new_date - last_date).to_i > 10
@@ -198,4 +169,3 @@ end
 # else
 #   puts "Checking your BP regularly is a great health habit. Keep it up!"
 # end
-last_n_entries(days_request)
