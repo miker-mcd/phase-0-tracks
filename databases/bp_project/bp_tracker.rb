@@ -14,10 +14,8 @@ create_bp_table = <<-SQL
   )
 SQL
 
-$USERS = SQLite3::Database.new("users.db")
-
 create_users_table = <<-SQL
-  CREATE TABLE IF NOT EXISTS bloodpressure(
+  CREATE TABLE IF NOT EXISTS users(
   users_id INTEGER PRIMARY KEY,
   name VARCHAR(255),
   age INT
@@ -25,7 +23,7 @@ create_users_table = <<-SQL
 SQL
 
 $BP.execute(create_bp_table)
-$USERS.execute(create_users_table)
+$BP.execute(create_users_table)
 
 # Let a user enter a blood pressure reading and save it in the table
 def new_entry(date, systolic, diastolic)
