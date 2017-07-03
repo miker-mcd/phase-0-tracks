@@ -9,11 +9,23 @@ create_bp_table = <<-SQL
   date DATE,
   systolic INT,
   diastolic INT,
-  # time TIME
+  user_id INT,
+  FOREIGN KEY (user_id) REFERENCES users(users_id)
+  )
+SQL
+
+$USERS = SQLite3::Database.new("users.db")
+
+create_users_table = <<-SQL
+  CREATE TABLE IF NOT EXISTS bloodpressure(
+  users_id INTEGER PRIMARY KEY,
+  name VARCHAR(255),
+  age INT
   )
 SQL
 
 $BP.execute(create_bp_table)
+$USERS.execute(create_users_table)
 
 # Let a user enter a blood pressure reading and save it in the table
 def new_entry(date, systolic, diastolic)
@@ -160,19 +172,19 @@ end
 
 # TEST CODE
 
-puts "Type a number of days to view entries (10, 30 or 60)"
-number_of_days = gets.chomp.to_i
-last_n_entries(number_of_days)
-puts "Highest SYS: #{highest_sys(number_of_days)}"
-puts "Highest DIA: #{highest_dia(number_of_days)}"
-puts "Average SYS: #{sys_average(number_of_days)}"
-puts "Average DIA: #{dia_average(number_of_days)}"
-feedback(sys_average(number_of_days), dia_average(number_of_days))
+# puts "Type a number of days to view entries (10, 30 or 60)"
+# number_of_days = gets.chomp.to_i
+# last_n_entries(number_of_days)
+# puts "Highest SYS: #{highest_sys(number_of_days)}"
+# puts "Highest DIA: #{highest_dia(number_of_days)}"
+# puts "Average SYS: #{sys_average(number_of_days)}"
+# puts "Average DIA: #{dia_average(number_of_days)}"
+# feedback(sys_average(number_of_days), dia_average(number_of_days))
 
 # if new entry date is more than 10 days old, remind user to take blood pressure at least once per week
 # if user enters a bp entry at least once every ten days give positive feedback
-if (new_date - last_date).to_i > 10
-  puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
-else
-  puts "Checking your BP regularly is a great health habit. Keep it up!"
-end
+# if (new_date - last_date).to_i > 10
+#   puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
+# else
+#   puts "Checking your BP regularly is a great health habit. Keep it up!"
+# end
