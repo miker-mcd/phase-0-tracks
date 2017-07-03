@@ -1,35 +1,35 @@
 require 'sqlite3'
 
-$DB = SQLite3::Database.new("bloodpressure.db")
-$DB.results_as_hash = true
+$BP = SQLite3::Database.new("bloodpressure.db")
+$BP.results_as_hash = true
 
-create_table_cmd = <<-SQL
+create_bp_table = <<-SQL
   CREATE TABLE IF NOT EXISTS bloodpressure(
   bp_id INTEGER PRIMARY KEY,
-  diastolic INT,
-  systolic INT,
   date DATE,
-  time TIME
+  systolic INT,
+  diastolic INT,
+  # time TIME
   )
 SQL
 
-$DB.execute(create_table_cmd)
+$BP.execute(create_bp_table)
 
 # Let a user enter a blood pressure reading and save it in the table
-def new_entry(diastolic, systolic, date, time)
+def new_entry(date, systolic, diastolic)
   # query = <<-SQL
   #   INSERT INTO bloodpressure (diastolic, systolic, date, time)
   #   VALUES (?, ?, ?, ?)
   #   SQL
   #   , [diastolic, systolic, date, time]
-  #   $DB.execute(query)
-    # $DB.execute(query, (diastolic, systolic, date, time))
+  #   $BP.execute(query)
+    # $BP.execute(query, (diastolic, systolic, date, time))
     # , [diastolic, systolic, date, time])
-  $DB.execute("INSERT INTO bloodpressure (diastolic, systolic, date, time) VALUES (?, ?, ?, ?)", [diastolic, systolic, date, time])
+  $BP.execute("INSERT INTO bloodpressure (date, systolic, diastolic) VALUES (?, ?, ?)", [date, systolic, diastolic])
 end
 
 def last_date
-  date = $DB.execute(<<-SQL
+  date = $BP.execute(<<-SQL
     SELECT date FROM bloodpressure
     ORDER BY date DESC LIMIT 2
     SQL
@@ -39,7 +39,7 @@ def last_date
 end
 
 def new_date
-  date = $DB.execute(<<-SQL
+  date = $BP.execute(<<-SQL
     SELECT date FROM bloodpressure
     ORDER BY date DESC LIMIT 1
     SQL
@@ -58,13 +58,13 @@ end
 # # a recurring day - 2017-06-(01-30)
 #   day = day.next_day
 #   # day = day.to_s #<= "2017-06-01"
-#   create_entry($DB, dia, sys, (day.to_s), '7:00:00')
+#   create_entry($BP, dia, sys, (day.to_s), '7:00:00')
 # end
 
 # display option of 10, 30 or 60 previous entries with average diastolic and systolic reading, highest diastolic/systolic and lowest diastolic/systolic
 def last_n_entries(days_request)
   number = days_request
-  results = $DB.execute(
+  results = $BP.execute(
     "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC LIMIT (?))
     ORDER BY bp_id ASC", [number])
   puts "Last #{number} entries:"
@@ -80,7 +80,7 @@ end
 
 def sys_average(days_request)
   number = days_request
-  results = $DB.execute(
+  results = $BP.execute(
     "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
     ORDER BY bp_id ASC", [number])
   sys_total = 0
@@ -92,7 +92,7 @@ end
 
 def dia_average(days_request)
   number = days_request
-  results = $DB.execute(
+  results = $BP.execute(
     "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
     ORDER BY bp_id ASC", [number])
   dia_total = 0
@@ -128,7 +128,7 @@ end
 
 def dia_average(days_request)
   number = days_request
-  results = $DB.execute(
+  results = $BP.execute(
     "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
     ORDER BY bp_id ASC", [number])
   dia_total = 0
@@ -140,7 +140,7 @@ end
 
 def highest_sys(days_request)
   number = days_request
-  high_sys = $DB.execute(
+  high_sys = $BP.execute(
     "SELECT systolic FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
     ORDER BY systolic DESC LIMIT 1", [number])
   sys = high_sys[0]['systolic']
@@ -148,7 +148,7 @@ end
 
 def highest_dia(days_request)
   number = days_request
-  high_dia = $DB.execute(
+  high_dia = $BP.execute(
     "SELECT diastolic FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
     ORDER BY diastolic DESC LIMIT 1", [number])
   dia = high_dia[0]['diastolic']
