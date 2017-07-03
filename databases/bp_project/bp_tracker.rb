@@ -80,11 +80,9 @@ end
 
 def sys_average(days_request)
   number = days_request
-  results = $DB.execute(#<<-SQL
+  results = $DB.execute(
     "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
     ORDER BY bp_id ASC", [number])
-    # SQL
-    # )
   sys_total = 0
   results.each do |entry|
     sys_total += entry['systolic']
@@ -92,12 +90,11 @@ def sys_average(days_request)
   sys_avg = sys_total / results.count
 end
 
-def dia_average
-  results = $DB.execute(<<-SQL
-    SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit 10)
-    ORDER BY bp_id ASC
-    SQL
-    )
+def dia_average(days_request)
+  number = days_request
+  results = $DB.execute(
+    "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
+    ORDER BY bp_id ASC", [number])
   dia_total = 0
   results.each do |entry|
     dia_total += entry['diastolic']
@@ -159,7 +156,7 @@ last_n_entries(number_of_days)
 # puts "Highest SYS: #{highest_sys}"
 # puts "Highest DIA: #{highest_dia}"
 puts "Total Average SYS: #{sys_average(number_of_days)}"
-# puts "Total Average DIA: #{dia_average}"
+puts "Total Average DIA: #{dia_average(number_of_days)}"
 # feedback(sys_average, dia_average)
 
 # if new entry date is more than 10 days old, remind user to take blood pressure at least once per week
