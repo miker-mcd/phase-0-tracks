@@ -97,17 +97,30 @@ def sys_average(user_id, days_request)
   sys_avg = sys_total / results.count
 end
 
-def dia_average(days_request)
+def dia_average(user_id, days_request)
+  id = user_id
   number = days_request
   results = $BP.execute(
-    "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
-    ORDER BY bp_id ASC", [number])
+    "SELECT * FROM (SELECT * FROM bloodpressure WHERE user_id = (?) ORDER BY bp_id DESC limit (?))
+    ORDER BY bp_id ASC", [id, number])
   dia_total = 0
   results.each do |entry|
     dia_total += entry['diastolic']
   end
   dia_avg = dia_total / results.count
 end
+
+# def dia_average(days_request)
+#   number = days_request
+#   results = $BP.execute(
+#     "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
+#     ORDER BY bp_id ASC", [number])
+#   dia_total = 0
+#   results.each do |entry|
+#     dia_total += entry['diastolic']
+#   end
+#   dia_avg = dia_total / results.count
+# end
 
 # Give user positive feedback if average is lower than normal bp
 # normal sys less than 120, dia less than 80
@@ -160,7 +173,7 @@ last_n_entries(user_id, number_of_days)
 # puts "Highest SYS: #{highest_sys(number_of_days)}"
 # puts "Highest DIA: #{highest_dia(number_of_days)}"
 puts "Average SYS: #{sys_average(user_id, number_of_days)}"
-# puts "Average DIA: #{dia_average(number_of_days)}"
+puts "Average DIA: #{dia_average(user_id, number_of_days)}"
 # feedback(sys_average(number_of_days), dia_average(number_of_days))
 
 # if new entry date is more than 10 days old, remind user to take blood pressure at least once per week
