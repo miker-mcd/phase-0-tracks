@@ -113,8 +113,8 @@ end
 # Give supportive feedback if avg is
 # prehyper sys 120-139 OR dia 80-89
 # hyper stage 1 sys 140-159 OR dia 90-99
-# hyper stage 2 sys >= 160 or dia >= 100
-# Crisis sys >= 180 or dia >= 110
+# hyper stage 2 sys >= 160 OR dia >= 100
+# Crisis sys >= 180 OR dia >= 110
 def feedback(sys_average, dia_average)
   sys = sys_average
   dia = dia_average
@@ -152,23 +152,52 @@ end
 
 # TEST CODE
 
-puts "Type your user id and hit enter"
-user_id = gets.chomp.to_i
-puts "Type a number of days to view entries (10, 30 or 60)"
-number_of_days = gets.chomp.to_i
-last_n_entries(user_id, number_of_days)
-puts "Highest SYS: #{highest_sys(user_id, number_of_days)}"
-puts "Highest DIA: #{highest_dia(user_id, number_of_days)}"
-puts "Average SYS: #{sys_average(user_id, number_of_days)}"
-puts "Average DIA: #{dia_average(user_id, number_of_days)}"
-feedback(sys_average(user_id, number_of_days), dia_average(user_id, number_of_days))
+# IF new user
+  # get user name and age
+  # store name and age in users table
+  # provide user id to user
+  # proceed to new bp entry?
+# ELSE
+  # Thank user for considering bp tracker and exit program
+
+# User greeting
+  puts "Welcome to BP Tracker"
+  puts "What would you like to do today?"
+  puts "Type 'new user', 'new entry', 'view history' or 'quit' to exit the program."
+
+# IF new bp entry
+  # get user id
+  # how many entries?
+  # FOR EACH entry
+    # get entry date, sys, dia, (user id)
+  # ENDFOREACH
+  # display default last 10 entries with feedback
+# ELSE
+  # Thank user for using bp tracker and exit program
+
+# IF user wants to view history
+  # Ask user how many previous entries (10, 30, 60)
+  # Display results with feedback
+# ELSE
+  # Thank user for using bp tracker
+
+# puts "Type your user id and hit enter"
+# user_id = gets.chomp.to_i
+# puts "Type a number of days to view entries (10, 30 or 60)"
+# number_of_days = gets.chomp.to_i
+# last_n_entries(user_id, number_of_days)
+# puts "Highest SYS: #{highest_sys(user_id, number_of_days)}"
+# puts "Highest DIA: #{highest_dia(user_id, number_of_days)}"
+# puts "Average SYS: #{sys_average(user_id, number_of_days)}"
+# puts "Average DIA: #{dia_average(user_id, number_of_days)}"
+# feedback(sys_average(user_id, number_of_days), dia_average(user_id, number_of_days))
 # if new entry date is more than 10 days old, remind user to take blood pressure at least once per week
 # if user enters a bp entry at least once every ten days give positive feedback
-if (new_date(user_id) - last_date(user_id)).to_i > 10
-  puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
-else
-  puts "Checking your BP regularly is a great health habit. Keep it up!"
-end
+# if (new_date(user_id) - last_date(user_id)).to_i > 10
+#   puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
+# else
+#   puts "Checking your BP regularly is a great health habit. Keep it up!"
+# end
 # new_user("Homer Simpson", 39)
 # new_user("Ned Flanders", 60)
 # new_user("Edna Krabappel", 41)
