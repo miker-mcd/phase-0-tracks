@@ -156,14 +156,16 @@ def new_date(user_id)
     day = Date.new(new_date[0].to_i, new_date[1].to_i, new_date[2].to_i)
 end
 
-# TEST CODE
+# ## DRIVER CODE##
 
 # User greeting
 puts "Welcome to BP Tracker"
-puts "What would you like to do today?"
-puts "Type 'new user', 'new entry', 'view history' or 'quit' to exit the program."
 
-input = gets.chomp
+loop do
+  puts "What would you like to do today?"
+  puts "Type 'new user', 'new entry', 'view history' or 'quit' to exit the program."
+
+  input = gets.chomp
 
 # IF new user
   # get user name and age
@@ -172,81 +174,80 @@ input = gets.chomp
   # proceed to new bp entry?
 # ELSE
   # Thank user for considering bp tracker and exit program
-if input == "new user"
-  puts "Signing up is simple! What is your first and last name?"
-  new_name = gets.chomp
-  puts "Thank you, #{new_name}!"
-  puts "Please enter your age."
-  new_age = gets.chomp.to_i
-  new_user(new_name, new_age)
-  puts "Your user id number is #{get_user_id(new_name)}."
-  puts "The user id number is required for new entries and viewing your history so don't forget it!"
+  if input == "new user"
+    puts "Signing up is simple! What is your first and last name?"
+    new_name = gets.chomp
+    puts "Thank you, #{new_name}!"
+    puts "Please enter your age."
+    new_age = gets.chomp.to_i
+    new_user(new_name, new_age)
+    puts "Your user id number is #{get_user_id(new_name)}."
+    puts "The user id number is required for new entries and viewing your history so don't forget it!"
 
-# IF new bp entry
-  # get user id
-  # how many entries?
-  # FOR EACH entry
-    # get entry date, sys, dia, (user id)
-  # ENDFOREACH
-  # display default last 10 entries with feedback
-elsif input == "new entry"
-  puts "Let's get started! What is your user id number?"
-  user_id = gets.chomp.to_i
-  puts "How many blood pressure entries would you like to make?"
-  number = gets.chomp.to_i
-  number.times do
-    puts "Please enter the date of the BP reading (YYYY-MM-DD)."
-    date = gets.chomp
-    puts "Please enter the systolic number."
-    sys = gets.chomp.to_i
-    puts "Please enter the diastolic number."
-    dia = gets.chomp.to_i
-    new_entry(date, sys, dia, user_id)
+  # IF new bp entry
+    # get user id
+    # how many entries?
+    # FOR EACH entry
+      # get entry date, sys, dia, (user id)
+    # ENDFOREACH
+    # display default last 10 entries with feedback
+  elsif input == "new entry"
+    puts "Let's get started! What is your user id number?"
+    user_id = gets.chomp.to_i
+    puts "How many blood pressure entries would you like to make?"
+    number = gets.chomp.to_i
+    number.times do
+      puts "Please enter the date of the BP reading (YYYY-MM-DD)."
+      date = gets.chomp
+      puts "Please enter the systolic number."
+      sys = gets.chomp.to_i
+      puts "Please enter the diastolic number."
+      dia = gets.chomp.to_i
+      new_entry(date, sys, dia, user_id)
+    end
+    last_n_entries(user_id, 10)
+    puts "Highest SYS: #{highest_sys(user_id, 10)}"
+    puts "Highest DIA: #{highest_dia(user_id, 10)}"
+    puts "Average SYS: #{sys_average(user_id, 10)}"
+    puts "Average DIA: #{dia_average(user_id, 10)}"
+    feedback(sys_average(user_id, 10), dia_average(user_id, 10))
+      if (new_date(user_id) - last_date(user_id)).  to_i > 10
+        puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
+      else
+        puts "Checking your BP regularly is a great health habit. Keep it up!"
+      end
+
+  # ELSIF user wants to view history
+  elsif input == "view history"
+    # Get user id
+    puts "Type your user id and hit enter"
+    user_id = gets.chomp.to_i
+    # Ask user how many previous entries (10, 30, 60)
+    puts "Type a number of days to view entries (10, 30 or 60)"
+    number_of_days = gets.chomp.to_i
+    # Display results with feedback
+    last_n_entries(user_id, number_of_days)
+    puts "Highest SYS: #{highest_sys(user_id, number_of_days)}"
+    puts "Highest DIA: #{highest_dia(user_id, number_of_days)}"
+    puts "Average SYS: #{sys_average(user_id, number_of_days)}"
+    puts "Average DIA: #{dia_average(user_id, number_of_days)}"
+    feedback(sys_average(user_id, number_of_days), dia_average(user_id, number_of_days))
+      # IF new entry date is more than 10 days old
+      if (new_date(user_id) - last_date(user_id)).to_i > 10
+        # remind user to take blood pressure at least once per week
+        puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
+    # ELSE
+      else
+      # give positive feedback
+        puts "Checking your BP regularly is a great health habit. Keep it up!"
+    # ENDIF
+      end
+
+  elsif input == "quit"
+    puts "Thank you for using BP Tracker! Have a good day!"
+    break
+
   end
-  last_n_entries(user_id, 10)
-  puts "Highest SYS: #{highest_sys(user_id, 10)}"
-  puts "Highest DIA: #{highest_dia(user_id, 10)}"
-  puts "Average SYS: #{sys_average(user_id, 10)}"
-  puts "Average DIA: #{dia_average(user_id, 10)}"
-  feedback(sys_average(user_id, 10), dia_average(user_id, 10))
-    if (new_date(user_id) - last_date(user_id)).  to_i > 10
-      puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
-    else
-      puts "Checking your BP regularly is a great health habit. Keep it up!"
-    end
-
-# ELSIF user wants to view history
-elsif input == "view history"
-  # Get user id
-  puts "Type your user id and hit enter"
-  user_id = gets.chomp.to_i
-  # Ask user how many previous entries (10, 30, 60)
-  puts "Type a number of days to view entries (10, 30 or 60)"
-  number_of_days = gets.chomp.to_i
-  # Display results with feedback
-  last_n_entries(user_id, number_of_days)
-  puts "Highest SYS: #{highest_sys(user_id, number_of_days)}"
-  puts "Highest DIA: #{highest_dia(user_id, number_of_days)}"
-  puts "Average SYS: #{sys_average(user_id, number_of_days)}"
-  puts "Average DIA: #{dia_average(user_id, number_of_days)}"
-  feedback(sys_average(user_id, number_of_days), dia_average(user_id, number_of_days))
-    # IF new entry date is more than 10 days old
-    if (new_date(user_id) - last_date(user_id)).to_i > 10
-      # remind user to take blood pressure at least once per week
-      puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
-  # ELSE
-    else
-    # give positive feedback
-      puts "Checking your BP regularly is a great health habit. Keep it up!"
-  # ENDIF
-    end
-
-elsif input == "quit"
-  puts "Thank you for using BP Tracker! Have a good day!"
-
-else
-  puts "Invalid option, please type one of the available options to continue"
-
 end
 
 # new_user("Homer Simpson", 39)
