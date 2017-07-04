@@ -215,11 +215,13 @@ loop do
     puts "Average SYS: #{sys_average(user_id, 10)}"
     puts "Average DIA: #{dia_average(user_id, 10)}"
     feedback(sys_average(user_id, 10), dia_average(user_id, 10))
+    if last_date(user_id) != nil
       if (new_date(user_id) - last_date(user_id)).to_i > 10
         puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
       else
         puts "Checking your BP regularly is a great health habit. Keep it up!"
       end
+    end
 
   # ELSIF user wants to view history
   elsif input == "view history"
