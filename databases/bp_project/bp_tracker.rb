@@ -40,7 +40,7 @@ def new_entry(date, systolic, diastolic, user_id)
 end
 
 # # Make a sample log of entries
-# day = Date.new(2017,03,31)
+# day = Date.new(2017,02,28)
 # 60.times do
 # # generate a random systolic number between 100-180
 #   sys = (100..180).to_a.sample
@@ -159,6 +159,11 @@ end
 
 ## DRIVER CODE ##
 
+# SAMPLE USERS
+# "Homer Simpson", user_id = 1
+# "Ned Flanders", user_id = 2
+# "Edna Krabappel", user_id = 3
+
 # User greeting
 puts "Welcome to BP Tracker"
 
@@ -261,7 +266,3 @@ loop do
 
   end
 end
-
-# new_user("Homer Simpson", 39)
-# new_user("Ned Flanders", 60)
-# new_user("Edna Krabappel", 41)
