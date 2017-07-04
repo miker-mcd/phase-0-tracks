@@ -143,8 +143,12 @@ def last_date(user_id)
   date = $BP.execute(
     "SELECT date FROM bloodpressure WHERE user_id = (?)
     ORDER BY date DESC LIMIT 2", [id])
+  if date[1].nil? == false
     old_date = date[1]['date'].split("-")
     day = Date.new(old_date[0].to_i, old_date[1].to_i, old_date[2].to_i)
+  else
+    puts "Congratulations on your first entry!"
+  end
 end
 
 def new_date(user_id)
@@ -152,8 +156,8 @@ def new_date(user_id)
   date = $BP.execute(
     "SELECT date FROM bloodpressure WHERE user_id = (?)
     ORDER BY date DESC LIMIT 1", [id])
-    new_date = date[0]['date'].split("-")
-    day = Date.new(new_date[0].to_i, new_date[1].to_i, new_date[2].to_i)
+  new_date = date[0]['date'].split("-")
+  day = Date.new(new_date[0].to_i, new_date[1].to_i, new_date[2].to_i)
 end
 
 # ## DRIVER CODE##
@@ -211,7 +215,7 @@ loop do
     puts "Average SYS: #{sys_average(user_id, 10)}"
     puts "Average DIA: #{dia_average(user_id, 10)}"
     feedback(sys_average(user_id, 10), dia_average(user_id, 10))
-      if (new_date(user_id) - last_date(user_id)).  to_i > 10
+      if (new_date(user_id) - last_date(user_id)).to_i > 10
         puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
       else
         puts "Checking your BP regularly is a great health habit. Keep it up!"
@@ -233,14 +237,16 @@ loop do
     puts "Average DIA: #{dia_average(user_id, number_of_days)}"
     feedback(sys_average(user_id, number_of_days), dia_average(user_id, number_of_days))
       # IF new entry date is more than 10 days old
-      if (new_date(user_id) - last_date(user_id)).to_i > 10
-        # remind user to take blood pressure at least once per week
-        puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
-    # ELSE
-      else
-      # give positive feedback
-        puts "Checking your BP regularly is a great health habit. Keep it up!"
-    # ENDIF
+      if last_date(user_id) != nil
+        if (new_date(user_id) - last_date(user_id)).to_i > 10
+          # remind user to take blood pressure at least once per week
+          puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
+      # ELSE
+        else
+        # give positive feedback
+          puts "Checking your BP regularly is a great health habit. Keep it up!"
+      # ENDIF
+        end
       end
 
   elsif input == "quit"
