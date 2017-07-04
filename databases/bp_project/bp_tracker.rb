@@ -110,18 +110,6 @@ def dia_average(user_id, days_request)
   dia_avg = dia_total / results.count
 end
 
-# def dia_average(days_request)
-#   number = days_request
-#   results = $BP.execute(
-#     "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
-#     ORDER BY bp_id ASC", [number])
-#   dia_total = 0
-#   results.each do |entry|
-#     dia_total += entry['diastolic']
-#   end
-#   dia_avg = dia_total / results.count
-# end
-
 # Give user positive feedback if average is lower than normal bp
 # normal sys less than 120, dia less than 80
 # Give supportive feedback if avg is
@@ -146,12 +134,12 @@ def feedback(sys_average, dia_average)
   end
 end
 
-
-def highest_sys(days_request)
+def highest_sys(user_id, days_request)
+  id = user_id
   number = days_request
   high_sys = $BP.execute(
-    "SELECT systolic FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
-    ORDER BY systolic DESC LIMIT 1", [number])
+    "SELECT systolic FROM (SELECT * FROM bloodpressure WHERE user_id = (?) ORDER BY bp_id DESC limit (?))
+    ORDER BY systolic DESC LIMIT 1", [id, number])
   sys = high_sys[0]['systolic']
 end
 
@@ -170,7 +158,7 @@ user_id = gets.chomp.to_i
 puts "Type a number of days to view entries (10, 30 or 60)"
 number_of_days = gets.chomp.to_i
 last_n_entries(user_id, number_of_days)
-# puts "Highest SYS: #{highest_sys(number_of_days)}"
+puts "Highest SYS: #{highest_sys(user_id, number_of_days)}"
 # puts "Highest DIA: #{highest_dia(number_of_days)}"
 puts "Average SYS: #{sys_average(user_id, number_of_days)}"
 puts "Average DIA: #{dia_average(user_id, number_of_days)}"
