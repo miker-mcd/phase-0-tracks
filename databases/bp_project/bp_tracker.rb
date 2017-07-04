@@ -29,6 +29,12 @@ def new_user(name, age)
   $BP.execute("INSERT INTO users (name, age) VALUES (?, ?)", [name, age])
 end
 
+def get_user_id(name)
+  user = name
+  id = $BP.execute("SELECT users_id FROM users WHERE name = (?)", [user])
+  user_id = id[0]['users_id']
+end
+
 # Let a user enter a blood pressure reading and save it in the table
 def new_entry(date, systolic, diastolic, user_id)
   $BP.execute("INSERT INTO bloodpressure (date, systolic, diastolic, user_id) VALUES (?, ?, ?, ?)", [date, systolic, diastolic, user_id])
@@ -152,6 +158,14 @@ end
 
 # TEST CODE
 
+
+# User greeting
+  puts "Welcome to BP Tracker"
+  puts "What would you like to do today?"
+  puts "Type 'new user', 'new entry', 'view history' or 'quit' to exit the program."
+
+input = gets.chomp
+
 # IF new user
   # get user name and age
   # store name and age in users table
@@ -159,12 +173,16 @@ end
   # proceed to new bp entry?
 # ELSE
   # Thank user for considering bp tracker and exit program
-
-# User greeting
-  puts "Welcome to BP Tracker"
-  puts "What would you like to do today?"
-  puts "Type 'new user', 'new entry', 'view history' or 'quit' to exit the program."
-
+if input == "new user"
+  puts "Signing up is simple! What is your first and last name?"
+  new_name = gets.chomp
+  puts "Thank you, #{new_name}!"
+  puts "Please enter your age."
+  new_age = gets.chomp.to_i
+  new_user(new_name, new_age)
+  puts "Your user id number is #{get_user_id(new_name)}."
+  puts "The user id number is required for new entries and viewing your history so don't forget it!"
+end
 # IF new bp entry
   # get user id
   # how many entries?
@@ -176,6 +194,7 @@ end
   # Thank user for using bp tracker and exit program
 
 # IF user wants to view history
+  # Get user id
   # Ask user how many previous entries (10, 30, 60)
   # Display results with feedback
 # ELSE
