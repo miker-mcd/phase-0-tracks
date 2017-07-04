@@ -31,14 +31,6 @@ end
 
 # Let a user enter a blood pressure reading and save it in the table
 def new_entry(date, systolic, diastolic, user_id)
-  # query = <<-SQL
-  #   INSERT INTO bloodpressure (diastolic, systolic, date, time)
-  #   VALUES (?, ?, ?, ?)
-  #   SQL
-  #   , [diastolic, systolic, date, time]
-  #   $BP.execute(query)
-    # $BP.execute(query, (diastolic, systolic, date, time))
-    # , [diastolic, systolic, date, time])
   $BP.execute("INSERT INTO bloodpressure (date, systolic, diastolic, user_id) VALUES (?, ?, ?, ?)", [date, systolic, diastolic, user_id])
 end
 
@@ -85,34 +77,19 @@ def last_n_entries(user_id, days_request)
   puts "-----------------------------"
   puts
   results.each do |entry|
-    puts "#{entry['bp_id']} #{entry['date']} DIA: #{entry['diastolic']} SYS: #{entry['systolic']}"
+    puts "#{entry['bp_id']} #{entry['date']} SYS: #{entry['systolic']} DIA: #{entry['diastolic']}"
   end
   puts
   puts "-----------------------------"
   puts
 end
 
-# def last_n_entries(days_request)
-#   number = days_request
-#   results = $BP.execute(
-#     "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC LIMIT (?))
-#     ORDER BY bp_id ASC", [number])
-#   puts "Last #{number} entries:"
-#   puts "-----------------------------"
-#   puts
-#   results.each do |entry|
-#     puts "#{entry['bp_id']} #{entry['date']} DIA: #{entry['diastolic']} SYS: #{entry['systolic']}"
-#   end
-#   puts
-#   puts "-----------------------------"
-#   puts
-# end
-
-def sys_average(days_request)
+def sys_average(user_id, days_request)
+  id = user_id
   number = days_request
   results = $BP.execute(
-    "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
-    ORDER BY bp_id ASC", [number])
+    "SELECT * FROM (SELECT * FROM bloodpressure WHERE user_id = (?) ORDER BY bp_id DESC LIMIT (?))
+    ORDER BY bp_id ASC", [id, number])
   sys_total = 0
   results.each do |entry|
     sys_total += entry['systolic']
@@ -156,17 +133,6 @@ def feedback(sys_average, dia_average)
   end
 end
 
-def dia_average(days_request)
-  number = days_request
-  results = $BP.execute(
-    "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
-    ORDER BY bp_id ASC", [number])
-  dia_total = 0
-  results.each do |entry|
-    dia_total += entry['diastolic']
-  end
-  dia_avg = dia_total / results.count
-end
 
 def highest_sys(days_request)
   number = days_request
@@ -184,8 +150,6 @@ def highest_dia(days_request)
   dia = high_dia[0]['diastolic']
 end
 
-# TO DO LIST
-
 # TEST CODE
 
 puts "Type your user id and hit enter"
@@ -195,7 +159,7 @@ number_of_days = gets.chomp.to_i
 last_n_entries(user_id, number_of_days)
 # puts "Highest SYS: #{highest_sys(number_of_days)}"
 # puts "Highest DIA: #{highest_dia(number_of_days)}"
-# puts "Average SYS: #{sys_average(number_of_days)}"
+puts "Average SYS: #{sys_average(user_id, number_of_days)}"
 # puts "Average DIA: #{dia_average(number_of_days)}"
 # feedback(sys_average(number_of_days), dia_average(number_of_days))
 
