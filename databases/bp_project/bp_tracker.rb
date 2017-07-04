@@ -158,11 +158,10 @@ end
 
 # TEST CODE
 
-
 # User greeting
-  puts "Welcome to BP Tracker"
-  puts "What would you like to do today?"
-  puts "Type 'new user', 'new entry', 'view history' or 'quit' to exit the program."
+puts "Welcome to BP Tracker"
+puts "What would you like to do today?"
+puts "Type 'new user', 'new entry', 'view history' or 'quit' to exit the program."
 
 input = gets.chomp
 
@@ -182,6 +181,7 @@ if input == "new user"
   new_user(new_name, new_age)
   puts "Your user id number is #{get_user_id(new_name)}."
   puts "The user id number is required for new entries and viewing your history so don't forget it!"
+
 # IF new bp entry
   # get user id
   # how many entries?
@@ -214,6 +214,7 @@ elsif input == "new entry"
     else
       puts "Checking your BP regularly is a great health habit. Keep it up!"
     end
+
 # ELSIF user wants to view history
 elsif input == "view history"
   # Get user id
@@ -229,16 +230,23 @@ elsif input == "view history"
   puts "Average SYS: #{sys_average(user_id, number_of_days)}"
   puts "Average DIA: #{dia_average(user_id, number_of_days)}"
   feedback(sys_average(user_id, number_of_days), dia_average(user_id, number_of_days))
-  # IF new entry date is more than 10 days old
+    # IF new entry date is more than 10 days old
     if (new_date(user_id) - last_date(user_id)).to_i > 10
-    # remind user to take blood pressure at least once per week
+      # remind user to take blood pressure at least once per week
       puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
-# ELSE
+  # ELSE
     else
-  # give positive feedback
+    # give positive feedback
       puts "Checking your BP regularly is a great health habit. Keep it up!"
-# ENDIF
+  # ENDIF
     end
+
+elsif input == "quit"
+  puts "Thank you for using BP Tracker! Have a good day!"
+
+else
+  puts "Invalid option, please type one of the available options to continue"
+
 end
 
 # new_user("Homer Simpson", 39)
