@@ -101,7 +101,7 @@ def dia_average(user_id, days_request)
   id = user_id
   number = days_request
   results = $BP.execute(
-    "SELECT * FROM (SELECT * FROM bloodpressure WHERE user_id = (?) ORDER BY bp_id DESC limit (?))
+    "SELECT * FROM (SELECT * FROM bloodpressure WHERE user_id = (?) ORDER BY bp_id DESC LIMIT (?))
     ORDER BY bp_id ASC", [id, number])
   dia_total = 0
   results.each do |entry|
@@ -138,18 +138,27 @@ def highest_sys(user_id, days_request)
   id = user_id
   number = days_request
   high_sys = $BP.execute(
-    "SELECT systolic FROM (SELECT * FROM bloodpressure WHERE user_id = (?) ORDER BY bp_id DESC limit (?))
+    "SELECT systolic FROM (SELECT * FROM bloodpressure WHERE user_id = (?) ORDER BY bp_id DESC LIMIT (?))
     ORDER BY systolic DESC LIMIT 1", [id, number])
   sys = high_sys[0]['systolic']
 end
 
-def highest_dia(days_request)
+def highest_dia(user_id, days_request)
+  id = user_id
   number = days_request
   high_dia = $BP.execute(
-    "SELECT diastolic FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
-    ORDER BY diastolic DESC LIMIT 1", [number])
+    "SELECT diastolic FROM (SELECT * FROM bloodpressure WHERE user_id = (?)ORDER BY bp_id DESC LIMIT (?))
+    ORDER BY diastolic DESC LIMIT 1", [id, number])
   dia = high_dia[0]['diastolic']
 end
+
+# def highest_dia(days_request)
+#   number = days_request
+#   high_dia = $BP.execute(
+#     "SELECT diastolic FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
+#     ORDER BY diastolic DESC LIMIT 1", [number])
+#   dia = high_dia[0]['diastolic']
+# end
 
 # TEST CODE
 
@@ -159,7 +168,7 @@ puts "Type a number of days to view entries (10, 30 or 60)"
 number_of_days = gets.chomp.to_i
 last_n_entries(user_id, number_of_days)
 puts "Highest SYS: #{highest_sys(user_id, number_of_days)}"
-# puts "Highest DIA: #{highest_dia(number_of_days)}"
+puts "Highest DIA: #{highest_dia(user_id, number_of_days)}"
 puts "Average SYS: #{sys_average(user_id, number_of_days)}"
 puts "Average DIA: #{dia_average(user_id, number_of_days)}"
 # feedback(sys_average(number_of_days), dia_average(number_of_days))
