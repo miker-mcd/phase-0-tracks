@@ -42,17 +42,17 @@ def new_entry(date, systolic, diastolic, user_id)
   $BP.execute("INSERT INTO bloodpressure (date, systolic, diastolic, user_id) VALUES (?, ?, ?, ?)", [date, systolic, diastolic, user_id])
 end
 
-# Make a sample log of entries
-day = Date.new(2017,03,31)
-60.times do
-# generate a random systolic number between 100-180
-  sys = (100..180).to_a.sample
-# generate a random diastolic number 70-110
-  dia = (70..110).to_a.sample
-# a recurring day - 2017-06-(01-30)
-  day = day.next_day
-  new_entry((day.to_s), sys, dia, 3)
-end
+# # Make a sample log of entries
+# day = Date.new(2017,03,31)
+# 60.times do
+# # generate a random systolic number between 100-180
+#   sys = (100..180).to_a.sample
+# # generate a random diastolic number 70-110
+#   dia = (70..110).to_a.sample
+# # a recurring day - 2017-06-(01-30)
+#   day = day.next_day
+#   new_entry((day.to_s), sys, dia, 3)
+# end
 
 def last_date
   date = $BP.execute(<<-SQL
@@ -75,11 +75,12 @@ def new_date
 end
 
 # display option of 10, 30 or 60 previous entries with average diastolic and systolic reading, highest diastolic/systolic and lowest diastolic/systolic
-def last_n_entries(days_request)
+def last_n_entries(user_id, days_request)
+  id = user_id
   number = days_request
   results = $BP.execute(
-    "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC LIMIT (?))
-    ORDER BY bp_id ASC", [number])
+    "SELECT * FROM (SELECT * FROM bloodpressure WHERE user_id = (?)ORDER BY bp_id DESC LIMIT (?))
+    ORDER BY bp_id ASC", [id, number])
   puts "Last #{number} entries:"
   puts "-----------------------------"
   puts
@@ -90,6 +91,22 @@ def last_n_entries(days_request)
   puts "-----------------------------"
   puts
 end
+
+# def last_n_entries(days_request)
+#   number = days_request
+#   results = $BP.execute(
+#     "SELECT * FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC LIMIT (?))
+#     ORDER BY bp_id ASC", [number])
+#   puts "Last #{number} entries:"
+#   puts "-----------------------------"
+#   puts
+#   results.each do |entry|
+#     puts "#{entry['bp_id']} #{entry['date']} DIA: #{entry['diastolic']} SYS: #{entry['systolic']}"
+#   end
+#   puts
+#   puts "-----------------------------"
+#   puts
+# end
 
 def sys_average(days_request)
   number = days_request
@@ -171,9 +188,11 @@ end
 
 # TEST CODE
 
-# puts "Type a number of days to view entries (10, 30 or 60)"
-# number_of_days = gets.chomp.to_i
-# last_n_entries(number_of_days)
+puts "Type your user id and hit enter"
+user_id = gets.chomp.to_i
+puts "Type a number of days to view entries (10, 30 or 60)"
+number_of_days = gets.chomp.to_i
+last_n_entries(user_id, number_of_days)
 # puts "Highest SYS: #{highest_sys(number_of_days)}"
 # puts "Highest DIA: #{highest_dia(number_of_days)}"
 # puts "Average SYS: #{sys_average(number_of_days)}"
