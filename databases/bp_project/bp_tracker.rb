@@ -46,26 +46,6 @@ end
 #   new_entry((day.to_s), sys, dia, 3)
 # end
 
-def last_date
-  date = $BP.execute(<<-SQL
-    SELECT date FROM bloodpressure
-    ORDER BY date DESC LIMIT 2
-    SQL
-    )
-    old_date = date[1]['date'].split("-")
-    day = Date.new(old_date[0].to_i, old_date[1].to_i, old_date[2].to_i)
-end
-
-def new_date
-  date = $BP.execute(<<-SQL
-    SELECT date FROM bloodpressure
-    ORDER BY date DESC LIMIT 1
-    SQL
-    )
-    new_date = date[0]['date'].split("-")
-    day = Date.new(new_date[0].to_i, new_date[1].to_i, new_date[2].to_i)
-end
-
 # display option of 10, 30 or 60 previous entries with average diastolic and systolic reading, highest diastolic/systolic and lowest diastolic/systolic
 def last_n_entries(user_id, days_request)
   id = user_id
@@ -82,6 +62,24 @@ def last_n_entries(user_id, days_request)
   puts
   puts "-----------------------------"
   puts
+end
+
+def highest_sys(user_id, days_request)
+  id = user_id
+  number = days_request
+  high_sys = $BP.execute(
+    "SELECT systolic FROM (SELECT * FROM bloodpressure WHERE user_id = (?) ORDER BY bp_id DESC LIMIT (?))
+    ORDER BY systolic DESC LIMIT 1", [id, number])
+  sys = high_sys[0]['systolic']
+end
+
+def highest_dia(user_id, days_request)
+  id = user_id
+  number = days_request
+  high_dia = $BP.execute(
+    "SELECT diastolic FROM (SELECT * FROM bloodpressure WHERE user_id = (?)ORDER BY bp_id DESC LIMIT (?))
+    ORDER BY diastolic DESC LIMIT 1", [id, number])
+  dia = high_dia[0]['diastolic']
 end
 
 def sys_average(user_id, days_request)
@@ -134,31 +132,23 @@ def feedback(sys_average, dia_average)
   end
 end
 
-def highest_sys(user_id, days_request)
+def last_date(user_id)
   id = user_id
-  number = days_request
-  high_sys = $BP.execute(
-    "SELECT systolic FROM (SELECT * FROM bloodpressure WHERE user_id = (?) ORDER BY bp_id DESC LIMIT (?))
-    ORDER BY systolic DESC LIMIT 1", [id, number])
-  sys = high_sys[0]['systolic']
+  date = $BP.execute(
+    "SELECT date FROM bloodpressure WHERE user_id = (?)
+    ORDER BY date DESC LIMIT 2", [id])
+    old_date = date[1]['date'].split("-")
+    day = Date.new(old_date[0].to_i, old_date[1].to_i, old_date[2].to_i)
 end
 
-def highest_dia(user_id, days_request)
+def new_date(user_id)
   id = user_id
-  number = days_request
-  high_dia = $BP.execute(
-    "SELECT diastolic FROM (SELECT * FROM bloodpressure WHERE user_id = (?)ORDER BY bp_id DESC LIMIT (?))
-    ORDER BY diastolic DESC LIMIT 1", [id, number])
-  dia = high_dia[0]['diastolic']
+  date = $BP.execute(
+    "SELECT date FROM bloodpressure WHERE user_id = (?)
+    ORDER BY date DESC LIMIT 1", [id])
+    new_date = date[0]['date'].split("-")
+    day = Date.new(new_date[0].to_i, new_date[1].to_i, new_date[2].to_i)
 end
-
-# def highest_dia(days_request)
-#   number = days_request
-#   high_dia = $BP.execute(
-#     "SELECT diastolic FROM (SELECT * FROM bloodpressure ORDER BY bp_id DESC limit (?))
-#     ORDER BY diastolic DESC LIMIT 1", [number])
-#   dia = high_dia[0]['diastolic']
-# end
 
 # TEST CODE
 
@@ -171,15 +161,14 @@ puts "Highest SYS: #{highest_sys(user_id, number_of_days)}"
 puts "Highest DIA: #{highest_dia(user_id, number_of_days)}"
 puts "Average SYS: #{sys_average(user_id, number_of_days)}"
 puts "Average DIA: #{dia_average(user_id, number_of_days)}"
-# feedback(sys_average(number_of_days), dia_average(number_of_days))
-
+feedback(sys_average(user_id, number_of_days), dia_average(user_id, number_of_days))
 # if new entry date is more than 10 days old, remind user to take blood pressure at least once per week
 # if user enters a bp entry at least once every ten days give positive feedback
-# if (new_date - last_date).to_i > 10
-#   puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
-# else
-#   puts "Checking your BP regularly is a great health habit. Keep it up!"
-# end
+if (new_date(user_id) - last_date(user_id)).to_i > 10
+  puts "It's been more than ten days since your last BP entry. Please enter a BP at least once a week to better monitor your health."
+else
+  puts "Checking your BP regularly is a great health habit. Keep it up!"
+end
 # new_user("Homer Simpson", 39)
 # new_user("Ned Flanders", 60)
 # new_user("Edna Krabappel", 41)
