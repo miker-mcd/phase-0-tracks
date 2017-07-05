@@ -8,6 +8,11 @@ var ul_backs = document.getElementsByTagName("ul");
 var ul_back = ul_backs[0];
 ul_back.style.background = "pink";
 
+var newli = document.createElement("li");
+var node = document.createTextNode("relatively quiet");
+newli.appendChild(node);
+ul_back.appendChild(newli);
+
 function blend(event) {
   var photo = document.getElementById("lizard-photo");
   photo.style.visibility = "hidden";
@@ -17,9 +22,6 @@ function reveal(event) {
   var photo = document.getElementById("lizard-photo");
   photo.style.visibility = "visible";
 }
-// var photo = document.getElementById("lizard-photo");
-// var buttons = document.getElementsByTagName("button");
-// var button = buttons[0];
 
 var button = document.getElementById("button1");
 button.addEventListener("click", blend);
