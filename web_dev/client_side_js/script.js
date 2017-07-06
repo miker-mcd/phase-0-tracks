@@ -17,6 +17,12 @@ var node = document.createTextNode("relatively quiet");
 newli.appendChild(node);
 ul_back.appendChild(newli);
 
+// Loop through a collection of nodes of a certain class and apply the same effect to all of them
+var important = document.getElementsByClassName("special");
+for (var i = 0; i < important.length; i++) {
+  important[i].style.fontSize = "20px";
+}
+
 // Add event listener that hides the lizard photo when user clicks the blend button
 function blend(event) {
   var photo = document.getElementById("lizard-photo");
