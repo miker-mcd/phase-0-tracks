@@ -22,3 +22,9 @@
 // });
 
 // Adding and removing an HTML class
+
+// Add the .addClass call to the script
+$( "a" ).addClass( "test" );
+
+// To remove an existing class, use .removeClass():
+$( "a" ).removeClass( "test" );
