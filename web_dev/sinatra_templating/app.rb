@@ -13,6 +13,12 @@ get '/' do
   erb :home
 end
 
+# show cities on the home page
+get '/' do
+  @cities = db.execute("SELECT * FROM cities")
+  erb :home
+end
+
 get '/students/new' do
   erb :new_student
 end
@@ -30,6 +36,11 @@ end
 
 get '/students' do
   db.execute("DELETE FROM students WHERE name = (?)", params['name'])
+  redirect '/'
+end
+
+post '/cities' do
+  db.execute("INSERT INTO cities (name) VALUES (?)", [params['name']])
   redirect '/'
 end
 # add static resources
