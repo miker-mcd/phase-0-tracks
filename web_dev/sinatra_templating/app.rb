@@ -10,11 +10,6 @@ db.results_as_hash = true
 # show students on the home page
 get '/' do
   @students = db.execute("SELECT * FROM students")
-  erb :home
-end
-
-# show cities on the home page
-get '/' do
   @cities = db.execute("SELECT * FROM cities")
   erb :home
 end
@@ -25,6 +20,10 @@ end
 
 get '/students/delete' do
   erb :delete_student
+end
+
+get '/cities/add_city' do
+  erb :cities
 end
 
 # create new students via
@@ -40,7 +39,7 @@ get '/students' do
 end
 
 post '/cities' do
-  db.execute("INSERT INTO cities (name) VALUES (?)", [params['name']])
+  db.execute("INSERT INTO cities (name) VALUES (?)", params['name'])
   redirect '/'
 end
 # add static resources
