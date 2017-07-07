@@ -8,6 +8,10 @@ body {
   color: pink;
 }
 
+.hidden {
+  display: none;
+}
+
 img {
   height: 300px;
   width: 500px;

@@ -12,4 +12,9 @@ $( "h2" ).hover(
   }
 );
 
-$( "img#teeth" ).fadeOut( 2000 );
+$( "p.hidden" ).show( 2000 );
+
+$( "img#teeth" ).fadeOut( 2000,
+  function() {
+    $( "body" ).append( $( "<p>Wake up!!!</p>" ) );
+  });
