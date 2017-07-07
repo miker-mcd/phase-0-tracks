@@ -1,0 +1,18 @@
+body {
+  /*background-color: blue;*/
+}
+
+.test {
+  font-weight: bold;
+  border: 5px solid green;
+  color: pink;
+}
+
+.hidden {
+  display: none;
+}
+
+img {
+  height: 300px;
+  width: 500px;
+}
